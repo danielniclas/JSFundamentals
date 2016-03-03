@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>JS Bin</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body>
+
+
+<h3 id="demo"></h3>
+<h3 id="demox"></h3>
+
+<script>
+
+    var user = {
+        tournament:"The Masters",
+        tournament2:"Bone Munching",
+        data      :[
+            {name:"T. Woods", age:37},
+            {name:"P. Mickelson", age:43}
+        ],
+        data2  :[
+        {name:"Mook", age:10},
+        {name:"Koost", age:11}
+        ],
+
+
+        clickHandler:function (event) {
+            // To capture the value of "this" when it refers to the user object, we have to set it to another variable here:
+            // We set the value of "this" to theUserObj variable, so we can use it later
+            var userObj = this;
+
+            var message = '';
+            this.data.forEach (function (person) {
+                // Instead of using this.tournament, we now use theUserObj.tournament, because we explicitly set the value of theUserObj to "this" when the "this" value was referring to the user object
+                console.log (person.name + " is playing at " + userObj.tournament);
+
+                message += person.name + " is playing at " + userObj.tournament + "<br>";
+            });
+            $('#demo').html(message);
+        },
+
+        clickHandler2:function (event) {        //  Same thing with for loop instead of for each
+            // To capture the value of "this" when it refers to the user object, we have to set it to another variable here:
+            // We set the value of "this" to theUserObj variable, so we can use it later
+            var userObj = this;
+
+            var message = '';
+            var i;
+
+            for (i=0;i<this.data2.length; i++) {
+                var currentItem = this.data2[i];
+                message += currentItem.name + " is playing at " + userObj.tournament2 + "<br>";
+            }
+            $('#demox').html(message);
+        }
+    };
+    user.clickHandler();
+    user.clickHandler2();
+
+</script>
+
+
+</body>
+</html>

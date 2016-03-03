@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<p id="demo"></p>
+<p id="demox"></p>
+<p id="demoy"></p>
+
+<script>
+
+    //  FOR IN LOOP >>  Single Object {}
+
+    var pup = {
+        name: 'Mook',
+        color: 'Yellow',
+        age: '10'
+    };
+
+    var message = "<ul>";
+    for (x in pup) {                //  Iterates through properties of object:  x = PROPERTY in OBJECT
+
+        message += "<li>" + x + " : " + pup[x] +  "</li>";      //  access object value:  pup[x] >> pup.name   pup.color  pup.age
+    }                                                           //  x = PROPERTY,   pup[x] = VALUE
+    message += "</ul>";
+
+    document.getElementById('demo').innerHTML = message;
+
+
+
+    //  FOR LOOP
+    //  Collection:  Array of Objects [{},{},{}] - multiple key:value pairs
+
+    var puppies = [{name: 'Mook', color: 'yellow'},{name: 'Nibbs', color: 'red'},{name: 'Koost', color: 'black'}];
+
+    var i;
+    var txt = "<ul>";
+    for (i=0; i<puppies.length; i++) {
+
+        var currentItem = puppies[i];
+        txt += "<li>" + currentItem.name + " | " + currentItem.color + "</li>"
+    }
+    txt += "</ul>";
+
+    document.getElementById('demox').innerHTML=txt;
+
+
+    // FOR LOOP + FOR IN LOOP  - Array of Objects (multiple key:value pairs)
+
+
+    var poopers = [{name: 'Mook', color: 'yellow'},{name: 'Nibbs', color: 'red'},{name: 'Koost', color: 'black'}];
+
+    var z;
+    var text = "<ul>";
+    var msg = "";
+
+    var p = 1;
+
+    for (z=0; z < poopers.length; z++) {
+        var currentItm = poopers[z];        // current Array Item:  {1,2}
+
+        for (item in currentItm){           //  Loop through Object Properties
+            var prop = (p == 1)? "name": "color";   //  Ternary to pick the Property name (name or color)
+            msg += " | " + item + " : "  + currentItm[prop]    + "<br>";
+            p++;
+        }
+        var p = 1;
+    }
+
+    document.getElementById('demoy').innerHTML=msg;
+
+
+
+</script>
+
+
+</body>
+</html>

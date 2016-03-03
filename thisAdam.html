@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+
+<button onclick="doCalc(2,3, contact.printLater)">printLater</button>
+
+<button onclick="doCalc(2,3, contact.printName)">printName</button>
+
+<button onclick="doCalcX(2,3)">doCalcX</button>
+
+<button onclick="doCalcY(2,3, contact.printName)">doCalcY</button>
+
+<h3 id="demo"></h3>
+
+
+<script>
+
+    test = {
+        firstName: 'Mook',
+        printName: function(){console.log('XXX: ', this.firstName)}
+    };
+
+
+    contact = {
+        firstName: 'joe',
+        printName: function(){
+            console.log('this.firstName: ', this.firstName);
+            console.log("this; ", this);
+        },
+
+        printLater: function() {
+            var that = this;
+            setTimeout(function(){
+                that.printName();
+            }, 1500);
+        },
+
+        printLaterBetter : function(){
+            setTimeout(this.printName.bind(this), 1500);    //  function.bind(this)
+        },
+
+        printLaterAllCaps : function(){
+            setTimeout(function () {
+                console.log(this.firstName.toUpperCase());
+            }.bind(this), 1500);                            //  function.bind(this)
+        }
+
+//        printLaterAllCapsES6 : function(){                      //  ES6
+//            setTimeout(() => {
+//                console.log(this.firstName.toUpperCase());
+//            }, 1500);
+    };
+
+
+
+    this.x = 9;
+    var module = {
+        x: 81,
+        getX: function() { return this.x; }
+    };
+
+    console.log(module.getX());     // 81
+
+    var retrieveX = module.getX;
+    console.log(retrieveX());       // 9, because in this case, "this" refers to the global object
+
+    // Create a new function with 'this' bound to module
+    //New programmers (like myself) might confuse the global var getX with module's property getX
+
+    var boundGetX = retrieveX.bind(module);     //  function.bind(object)
+    console.log(boundGetX());                   //  81
+
+    console.log(retrieveX.call(module));        //  81
+
+
+
+
+//    contact.printLaterAllCaps();
+//    contact.printLater();
+//    contact.printLaterBetter();
+
+//    contact.printName();
+//    document.getElementById('demo').innerHTML = contact.firstName;
+//    console.log(contact.firstName);
+
+
+    function doCalc (x,y,callback){
+        console.log(x+y);
+        callback.call(contact);
+    }
+
+    function doCalcX (x,y){
+        console.log(x+y);
+        contact.printName();
+    }
+
+    function doCalcY (x,y,callback){
+        console.log(x+y);
+        callback.call(test);
+    }
+
+
+</script>
+
+
+
+
+</body>
+</html>

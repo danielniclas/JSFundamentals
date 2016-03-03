@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<div id="id01"></div><br>
+<div id="id02"></div>
+
+
+<script>
+    //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX
+    var xmlhttp = new XMLHttpRequest();           //  AJAX CALL to 'myTutorials.txt' for displayArray() Function Below
+    var url = "myTutorials.txt";                  //  <<  GET COLLECTION with AJAX!!
+
+
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            var myArr = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText
+            displayArray(myArr);                                //  <<  Invoke the Display Function, PASS ARRAY
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();                             //  AJAX part COMPLETE
+    //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  - END
+
+    function displayArray(arr) {                //  Display Results  <<  ARRAY (from AJAX) PASSED TO THIS FUNCTION
+        console.log(arr);
+
+        var text = "";
+        var i;
+        for(i = 0; i < arr.length; i++) {
+
+            var currentObject = arr[i];         //  Iterate over [array] of {objects}
+
+            text += '<a href="' + currentObject.url + '">' +
+                    currentObject.display + '</a><br>';
+
+        }
+        document.getElementById("id01").innerHTML = text;
+    }
+
+    //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //  THIS FUNCTION ACCESS the JSON via the <script> tag REFERENCE APPROACH:
+
+    function myFunction(arr) {         // <<  ACCESS JSON.JS  myFunction(mookArray) is CALLED IN THE JS FILE
+        var text = "";
+        var i;
+        for(i = 0; i < arr.length; i++) {
+            text += '<a href="' + arr[i].url + '">' +
+                    arr[i].display + '</a><br>';
+        }
+        document.getElementById("id02").innerHTML = text;
+    }
+
+
+</script>
+
+<script src="myTutorials.js"></script>
+
+
+
+
+
+</body>
+</html>

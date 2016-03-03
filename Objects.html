@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<p id="demo"></p>
+<p id="demo2"></p>
+<p id="demo3"></p>
+<p id="demo4"></p>
+<p id="demo5"></p>
+
+
+<script>
+
+    //  Create Object  -- Access object Method  <<  JUST AN OBJECT - Not Constructor
+    var person = {
+        firstName: "John",
+        lastName : "Doe",
+        fullName : function() {return this.firstName + " " + this.lastName;}  //  this is the OWNING OBJECT:  person
+    };
+    document.getElementById("demo").innerHTML = person.fullName();      // {person} OBJECT is invoking fullName()
+
+    //  Add Property:
+    person.nationality = "English";
+    document.getElementById("demo2").innerHTML = person.fullName() + " " + person.nationality;
+
+    //  Delete Property:    delete Keyword
+    delete person.nationality;
+    document.getElementById("demo3").innerHTML = person.fullName() + " (deleted) " + person.nationality;
+
+    //  Object Constructor Function:    PROTOTYPE for all objects it creates
+    //  The constructor function is the prototype for your personX objects.
+    function PersonX(first, last, age, eye) {
+        this.firstName = first;
+        this.lastName = last;
+        this.age = age;
+        this.eyeColor = eye;
+        this.name = function() {return this.firstName + " " + this.lastName
+        };
+    }
+
+    //  ADD new OBJECT to an existing PROTOTYPE:
+    var human = {
+        legs: 2,
+        head: 1
+    };
+
+    PersonX.prototype = human;
+
+    //  ADD new properties to an existing PROTOTYPE:
+    PersonX.prototype.nationality = "English";
+
+
+    //  CREATE TWO OBJECTS:  myFather and myMother   CREATE OBJECTS FROM THE SAME PROTOTYPE (above)
+    var myFather = new PersonX("John", "Doe", 50, "blue");
+    var myMother = new PersonX("Sally", "Rally", 48, "green");
+
+    document.getElementById("demo4").innerHTML =
+            "My father is " + myFather.age + ". My mother is " + myMother.age + ". Nationality is " + myMother.nationality + ". Legs: " + myMother.legs;
+
+
+
+
+//  ~~~~~~~~~~~~~~~~~~~~~
+
+//  call() and apply()
+
+    var Barn = {
+        name : "Barn",
+        greet:  function () {console.log("Hello I (Barn) am " + this.name)}  // this is Barn (owning Object)
+    };
+
+    barnGreet = Barn.greet;   //  barnGreet = function(){ }
+
+
+    var Mook = {
+        name : "Mook",
+        greet:  function () {
+            console.log("Hello I (Mook) am " + this.name)}	// this is Mook (owning Object)
+    };
+
+    barnGreet.call(Mook);	//  invoke barGreet function with context (this) of Mook object
+
+    //  The object that invokes the Barn.greet() function is in context.
+    //  We invoked the Barn.greet() function with the context of the {Mook} object
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 12px;
+        }
+        h1 { font-size: 1.5em; }
+        h2 { font-size: 1.2em; }
+    </style>
+
+</head>
+<body>
+
+<h2> Practical Closures </h2>
+<a href="#" id="size-12">12</a>
+<a href="#" id="size-14">14</a>
+<a href="#" id="size-16">16</a>
+
+<br>
+
+<h1>This is an h1 element</h1>
+<h2>This is an h2 element</h2>
+
+<p id="demo"></p>
+
+<button type="button" onclick="myFunction()">Count!</button>
+
+<br>
+
+<p id="help">Helpful notes will appear here</p>
+
+<p>E-mail: <input type="text" id="email" name="email"></p>
+<p>Name: <input type="text" id="name" name="name"></p>
+<p>Age: <input type="text" id="age" name="age"></p>
+
+
+<script>
+
+    //  Functions that return Functions!!!!
+    //  CLOSURE is the INNER FUNCTION !!!
+    //  Closures >> Function that CAPTURES ITS ENVIRONMENT  >>  LOCAL SCOPE goes with the returned function!
+    //  Closure lets you associate data (the object's properties) with one or more methods
+
+
+    // Closures are functions that refer to independent (free) variables. In other words, the function defined in
+    // the closure 'remembers' the environment in which it was created.
+
+    //  Lexical scoping:
+    //  in JavaScript, the scope of a variable is defined by its location within the source code
+    // (it is apparent lexically) and nested functions have access to variables declared in their OUTER (PARENT) scope.
+
+    function init() {               // >> PARENT (OUTER) Function -- Parent Scope
+        var name = "Mozilla";       // >> PARENT Scope -- name is a local variable created by init (the Parent Function)
+        function displayName() {    // >> INNER FUNCTION: function inside a function >> displayName() is the INNER FUNCTION, a closure >> Child Scope
+            alert("Name: " + name + " this: " + this);  // this INNER FUNCTION can use the (SCOPE) variable declared in the PARENT function
+        }
+        displayName();              //  <<  2.  invoke INNER FUNCTION
+    }
+    init();                         //  <<  1.  invoke OUTER FUNCTION  >>  creates variable + function >> then invokes INNER function
+
+    // init() creates a local variable name and then a function called displayName().
+    // displayName() is an inner function that is defined inside init() and is only available within the
+    // body of that function.
+
+    // displayName() has NO LOCAL VARIABLES OF ITS OWN, however it has access to the variables of OUTER functions
+    // and so can use the OUTER variable 'name' declared in the PARENT (OUTER)function.
+
+    //  ~~~~~~~~~~~~~~
+
+    //    Closure:  The INNER FUNCTION that is returned with its ENVIRONMENT
+
+    function makeFunc() {           // >> PARENT Function -- Parent Scope
+        var name = "Mookzilla";     // >> PARENT Scope -- name is a local variable created by init (the Parent Function)
+        function displayName() {    // >> INNER FUNCTION: function inside a function >> displayName()
+            alert(name);
+        }
+        return displayName;     //  PARENT function RETURNS the displayName function to makeFunc() then assigned to >>  myFunc
+                                //  1.  invoke PARENT makeFunc()
+                                //  2.  return INNER function: displayName() + SCOPE!!!  >>  to makeFunc()
+                                //  3.  assign displayName() to var myFunc
+    }
+
+    var myFunc = makeFunc();    //  Invoke >> Parent Function  >> return displayName Inner Function and assign to myFunc
+    myFunc();                   //  <<  myFunc is a CLOSURE:  INCORPORATES displayName function and Mookzilla string
+                                //  TAKES THE LOCAL SCOPE OF makeFunc() WITH IT!!!!!
+
+    // What's different — and interesting — is that the displayName() inner function was returned from the
+    // outer function before being executed.
+
+    //  myFunc has become a closure.
+    //  A closure is a special kind of object that combines two things: a function, and the environment in which that function was created.
+    //  The environment consists of any local variables that were in-scope at the time that the closure was created.
+    //  In this case, myFunc is a closure that incorporates both the displayName function and the "Mookzilla" string that
+    //  existed when the closure was created.
+
+    //  ~~~~~~~~~~~~~~
+
+    //    Closure -- Function Factory
+
+
+    function makeAdder(x) {     // >> PARENT Function - takes argument x and returns a function >> " function(y) { return x + y) "
+        return function(y) {    // makeAdder(x) <<  function(y) {return x+y}  ex.  makeAdder(5) << function(y) {return 5 + y}
+            return x + y;       //  RETURN an INNER function the is PARTLY FILLED IN by the PARENT function >>  Function FACTORY
+        };
+    }                           //  PRELOAD the returned function with a Value and assign function to add5 and add10 variables
+
+    var add5 = makeAdder(5);    //  makeAdder(5) <<  var add5 = function(y){ return 5 + y }  << The value of x (5) is available to the INNER function
+    var add10 = makeAdder(10);  //  makeAdder(10) <<  var add10 = function(y){ return 10 + y }
+
+    console.log(add5(2));  // 7     >>  add5(2) RETURNS:  x+y or 5 + 2   -- add5 and add10 are the CLOSURES , the function that was returned
+    console.log(add10(2)); // 12    >>  add10(2) RETURNS:  x+y or 10 + 2
+
+    // add5 and add10 are both closures. They share the same function body definition, but store different
+    // environments. In add5's environment, x is 5. As far as add10 is concerned, x is 10.
+    console.log(typeof add5);
+
+    //  ~~~~~~~~~~~~~~
+
+    //    Closure -- W3C example
+
+
+    var add = (function () {
+        var counter = 0;
+        return function () {return counter += 1;}
+    })();		//  Self Invoking Function
+
+    add();      //  This is the CLOSURE with the LOCAL ENVIRONMENT (var counter = 0)
+                //  function returned to add >>  function () {return counter +=1}
+    add();
+    add();
+
+    console.log(add());     // counter +=1 is an expression and is evaluated the RETURNED to add()
+
+    function myFunction(){
+        document.getElementById("demo").innerHTML = add();
+    }
+
+    //  ~~~~~~~~~~~~~~
+
+    //    Closure -- Practical Closures
+
+    //   A closure lets you associate some data (the environment) with a function that operates on that data.
+    //   This has obvious parallels to object oriented programming, where objects allow us to associate some data
+    //   (the object's properties) with one or more methods.   (using this???)
+
+    //  Consequently, you can use a closure anywhere that you might normally use an object with only a single method.
+
+    //  Much of the code we write in web JavaScript is event-based
+    //  — we define some behavior, then attach it to an event that is triggered by the user (such as a click or a keypress).
+    //  Our code is generally attached as a callback: a single function which is executed in response to the event.
+
+
+    function makeSizer(size) {
+        return function() {                                 //  THIS IS THE CLOSURE FUNCTION - the function that is RETURNED with its Environment
+            document.body.style.fontSize = size + 'px';     //  In this case the ENVIRONMENT is the value passed in by the invocation.
+        };
+    }
+
+    var size12 = makeSizer(12);         //  Closure function returned back here with Environment variable 12
+    var size14 = makeSizer(14);         //  Closure function returned back here with Environment variable 14
+    var size16 = makeSizer(16);         //  Closure function returned back here with Environment variable 16
+
+    document.getElementById('size-12').onclick = size12;
+    document.getElementById('size-14').onclick = size14;
+    document.getElementById('size-16').onclick = size16;
+
+
+    //  ~~~~~~~~~~~~~~
+
+    //  Emulating private methods with closures:  THE MODULE PATTERN
+
+    //  Private methods aren't just useful for restricting access to code: they also provide a powerful way of
+    // managing your global namespace, keeping non-essential methods from cluttering up the public interface to your code.
+
+    var counter = (function() {         //  self-invoking function >>  counter = { 1,2,3 } + PRIVATE ENVIRONMENT:  var & function
+
+        var privateCounter = 0;         //  Single PRIVATE ENVIRONMENT shared by THREE functions (in the OBJECT) - created in anonymous function
+        function changeBy(val) {        //  PRIVATE ENVIRONMENT - Can only be accessed by the three public functions that are returned from the anonymous wrapper
+            privateCounter += val;
+        }
+
+        return {                        //  return an {OBJECT} with functions -- these functions are ONLY available (PRIVATE) to the CLOSURE (counter)
+            increment: function() {
+                changeBy(1);
+            },
+            decrement: function() {
+                changeBy(-1);
+            },
+            value: function() {
+                return privateCounter;
+            }
+        };
+    })();       //  Self Invoking  --  executed as soon as it is defined!
+
+    console.log(counter.value()); // logs 0
+    counter.increment();
+    counter.increment();
+    console.log(counter.value()); // logs 2
+    counter.decrement();
+    console.log(counter.value()); // logs 1
+
+    //  ~~~~~~~~~~~~~~
+
+    //  Another example:
+
+    //  You'll notice we're defining an anonymous function that creates a counter, and then we call it immediately
+    //  and ASSIGN THE RESULT TO THE COUNTER VARIABLE.
+    //  We could store this function in a separate variable makeCounter
+    //  and use it to create several counters.
+
+    var makeCounter = function() {
+        var privateCounter = 0;
+        function changeBy(val) {
+            privateCounter += val;
+        }
+        return {                        // return an OBJECT of functions
+            increment: function() {
+                changeBy(1);
+            },
+            decrement: function() {
+                changeBy(-1);
+            },
+            value: function() {
+                return privateCounter;
+            }
+        }
+    };
+
+    var counter1 = makeCounter();               //  The two counter's are INDEPENDENT!
+    var counter2 = makeCounter();
+    alert(counter1.value()); /* Alerts 0 */
+    counter1.increment();
+    counter1.increment();
+    alert(counter1.value()); /* Alerts 2 */
+    counter1.decrement();
+    alert(counter1.value()); /* Alerts 1 */
+    alert(counter2.value()); /* Alerts 0 */
+
+
+    //  ~~~~~~~~~~~~~~
+
+    //  Closures in LOOPS:     DISPLAY NOTICE WHEN FOCUSING ON ONE OF THREE INPUT ELEMENTS
+
+    //  1.  loop through array of help messages and create an EVENT  CallBack function for each using the Closure Function Factory
+
+    function showHelp(help) {
+        document.getElementById('help').innerHTML = help;
+    }
+
+    function makeHelpCallback(help) {
+        return function() {                 //  function to return -- the CLOSURE
+            showHelp(help);                 //  this Closure becomes the CALLBACK Function for the onfocus EVENT
+        };
+    }
+
+    function setupHelp() {
+        var helpText = [
+            {'id': 'email', 'help': 'Your e-mail address'},
+            {'id': 'name', 'help': 'Your full name'},
+            {'id': 'age', 'help': 'Your age (you must be over 16)'}
+        ];
+
+        for (var i = 0; i < helpText.length; i++) {
+            var item = helpText[i];
+            document.getElementById(item.id).onfocus = makeHelpCallback(item.help);  //  Invocation statement
+                                                                                     //  Invoke Closure system with environment:  item.help  (for each array item)
+        }                                                                            //  create CLOSURE for each array item --  Function Factory
+                                //  IMPORTANT:  This EVENT triggers the Closure Function
+                                //  makeHelpCallback(item.help) IS a CALLBACK and = showHelp(help) for email, name and age
+
+                                //  FUNCTION FACTORY:
+                                //  1.  makeHelpCallback(email.help) IS a CALLBACK and = showHelp(email.help) -- Triggered by EVENT: onfocus
+                                //  2.  makeHelpCallback(name.help) IS a CALLBACK and = showHelp(name.help) -- Triggered by EVENT: onfocus
+                                //  3.  makeHelpCallback(age.help) IS a CALLBACK and = showHelp(age.help) -- Triggered by EVENT: onfocus
+    }
+    setupHelp();
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
