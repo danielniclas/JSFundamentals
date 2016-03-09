@@ -7,17 +7,126 @@
 <body>
 
 <div id="demo"></div>
+<div id="demo1"></div>
+<div id="demo2"></div>
+<div id="demo3"></div>
+<div id="demo4"></div>
+<div id="demo5"></div>
+<div id="demo6"></div>
+<div id="demo7"></div>
+<div id="demo8"></div>
+<div id="demo9"></div>
+<div id="demo10"></div>
 
 <script type="text/javascript">
 
-function myFunc(p1, p2) {
-        return (p1 * p2);
-    }
+    var x = "Outside";      //  GLOBAL SCOPE
 
-var result = myFunc(3,4);
-document.getElementById('demo').innerHTML = result;
+    (function(){
+
+        function myFunc(p1, p2) {       //  Declare function
+                return (p1 * p2);       //  function stops executing at the return statement
+            }
+        var result = myFunc(3,4);       //  Invoke
+        document.getElementById('demo').innerHTML = result;     //  DOM manipulation
 
 
+        var myFunc2 = function(p1, p2){     //  Define function expression
+            return("<h2> The result is: " + (p1 * p2) + "</h2>");
+        };
+        var result2 = myFunc2(3,4);
+        document.getElementById('demo1').innerHTML = result2;     //  DOM manipulation
+
+
+        function myFunc3(){
+            var x = "Inside";       //  LOCAL SCOPE
+            document.getElementById('demo2').innerHTML = "<h2> Location of variable: " + x + "</h2>";     //  DOM manipulation
+        }
+        myFunc3();
+
+        document.getElementById('demo3').innerHTML = "<h2> Location of variable: " + x + "</h2>";
+
+        //  LEXICAL SCOPING   LEXICAL SCOPING   LEXICAL SCOPING   LEXICAL SCOPING
+
+        function myFunc4(){     //  Parent Function
+            var firstName = "Joe";
+            var lastName = "Smith";
+            function greeting(){     //  Child Function - no variables of its own - access to parent variables
+                return ("<h2> Hello " + firstName + " " + lastName + "</h2>");
+            }
+            var result = greeting();  //  Invoke
+            document.getElementById('demo4').innerHTML = result;
+        }
+        myFunc4();
+
+        //  CLOSURE   CLOSURE    CLOSURE    CLOSURE    CLOSURE
+
+        function myFunc5(){
+            var firstName = "Mook";
+            var lastName = "Bear";
+            function greeting(){    //  Child Function << this function is returned
+                return ("<h2> Hello " + firstName + " " + lastName + "</h2>");
+            }
+            return greeting;    //  RETURN Child Function  <<  This is the Closure
+        }
+
+        var myClosure = myFunc5();         //  Invoke parent function
+        var message = myClosure();         //  Invoke CLOSURE
+        document.getElementById('demo5').innerHTML = message;
+
+        //  CLOSURE   CLOSURE    CLOSURE    CLOSURE    CLOSURE
+        //  Pass argument to LOCAL SCOPE
+        //  Pass argument to CLOSURE
+
+        function myFunc6(firstName){
+            var lastName = "Nibblet";
+            function greeting(greet){
+                return ("<h2>" + greet + " " + firstName + " " + lastName + "</h2>");
+            }
+        return greeting;  //  Return CLOSURE
+        }
+        var myClosure2 = myFunc6("Nibbs");
+        var message2 = myClosure2("Yay!");
+        document.getElementById('demo6').innerHTML = message2;
+
+
+        //  CALLBACK   CALLBACK   CALLBACK   CALLBACK   CALLBACK
+
+        var fruitCollection = ["orange", "banana"];
+        var extraFruit = "grape";
+
+        function printData(data){       //  <<  CALLBACK FUNCTION
+            document.getElementById("demo7").innerHTML = ("Fruit item added to collection: " + data);
+            document.getElementById("demo8").innerHTML = ("Extra fruit: " + extraFruit);
+            var message = " ";
+            for (var i = 0; i < fruitCollection.length; i++){
+                currentItem = fruitCollection[i];
+                   message += currentItem + " | ";
+            }
+            for (var index in fruitCollection){
+                console.log("Fruit Collection Index " + index + " " + fruitCollection[index])
+            }
+
+            document.getElementById("demo9").innerHTML = ("Array contents: " + message);
+        }
+
+        function parentFunction(parameter, callback){
+            fruitCollection.push(parameter); //  <<  Push fruit on to array
+            callback(parameter);
+        }
+
+        parentFunction("Noodle", printData);
+
+
+
+
+
+
+
+
+
+
+    })();
 
 </script>
 
