@@ -7,8 +7,14 @@
 <body>
 
 
-<div id="id01"></div><br>
+<div id="id01"></div>
 <div id="id02"></div>
+<div id="id03"></div>
+<div id="id04"></div>
+<div id="id05"></div>
+<div id="id06"></div>
+<div id="id07"></div>
+<div id="id08"></div>
 
 
 <script>
@@ -32,7 +38,7 @@
 
         var text = "";
         var i;
-        for(i = 0; i < arr.length; i++) {
+        for(i = 0; i < arr.length; i++) {       //  LOOP through ARRAY of OBJECTS
 
             var currentObject = arr[i];         //  Iterate over [array] of {objects}
 
@@ -40,11 +46,12 @@
                     currentObject.display + '</a><br>';
 
         }
-        document.getElementById("id01").innerHTML = text;
+        document.getElementById("id01").innerHTML = (text + "<br>");
+
     }
 
     //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //  THIS FUNCTION ACCESS the JSON via the <script> tag REFERENCE APPROACH:
+    //  THIS FUNCTION ACCESS the JSON via the <script> tag REFERENCE APPROACH -- <script> tag BELOW:
 
     function myFunction(arr) {         // <<  ACCESS JSON.JS  myFunction(mookArray) is CALLED IN THE JS FILE
         var text = "";
@@ -53,17 +60,47 @@
             text += '<a href="' + arr[i].url + '">' +
                     arr[i].display + '</a><br>';
         }
-        document.getElementById("id02").innerHTML = text;
+        document.getElementById("id02").innerHTML = (text + "<br>");
     }
 
+
+//  AJAX JSON OBJECT from TREEHOUSE.COM:
+
+function getUser(username){
+
+        //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX
+        var xmlhttp = new XMLHttpRequest();           //  AJAX CALL to TREEHOUSE.com
+        var url = "https://teamtreehouse.com/" + username + ".json";      //  <<  GET COLLECTION with AJAX!!
+
+        xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var myObject = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText
+        displayArray(myObject);                                //  <<  Invoke the Display Function, PASS ARRAY
+            }
+        };
+
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();                             //  AJAX part COMPLETE
+        //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  - END
+
+        //  Display Results  <<  ARRAY (from AJAX) PASSED TO THIS FUNCTION
+        function displayArray(myObject) {
+        console.log(myObject);
+
+            var message = "<ul>";
+            for (var x in myObject){        //  LOOP through returned OBJECT
+                message += "<li> Key: " + x + " | Value: " + myObject[x] + "</li>"
+            }
+            message += "</ul>";
+
+        document.getElementById("id03").innerHTML = message;
+        }
+    }
+    getUser("danielniclas");
 
 </script>
 
 <script src="myTutorials.js"></script>
-
-
-
-
 
 </body>
 </html>
