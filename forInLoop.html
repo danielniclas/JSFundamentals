@@ -21,7 +21,7 @@
     };
 
     var message = "<ul>";
-    for (x in pup) {                //  Iterates through properties of object:  x = PROPERTY in OBJECT
+    for (var x in pup) {                //  Iterates through properties of object:  x = PROPERTY in OBJECT
 
         message += "<li>" + x + " : " + pup[x] +  "</li>";      //  access object value:  pup[x] >> pup.name   pup.color  pup.age
     }                                                           //  x = PROPERTY,   pup[x] = VALUE

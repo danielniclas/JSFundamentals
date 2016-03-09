@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="demo"></div>
+<div id="demo1"></div>
+<div id="demo2"></div>
+<div id="demo3"></div>
+<div id="demo4"></div>
+<div id="demo5"></div>
+<div id="demo6"></div>
+<div id="demo7"></div>
+<div id="demo8"></div>
+<div id="demo9"></div>
+<div id="demo10"></div>
+<div id="demo11"></div>
+<div id="demo12"></div>
+
+
+<script type="text/javascript">
+
+
+    //  Difference between ARRAYS and OBJECTS
+    //  Arrays use numbered indexes
+    //  Objects use named indexes
+
+    (function(){
+
+        function myFunc() {
+            var index;
+            var text = "<ul>";
+            var fruits = ["orange","banana","apple"];
+
+            //  ADDING array elements:
+            fruits.push('lemon');
+            fruits[fruits.length] = "pineapple";
+
+            fruits.reverse();       //  Reverse contents of array
+            fruits.sort();          //  Alphabetize
+
+            for (var i = 0; i<fruits.length; i++){
+                var currentItem = fruits[i];
+                text += "<li> Fruit Item: " + currentItem + "</li>";
+            }
+            text += "</ul>";
+            document.getElementById('demo').innerHTML = text;
+        }
+        myFunc();
+
+        function myFunc2(){
+            var pups = ["Mook", "Nibbs", "Koost", "Barn"];
+
+            document.getElementById("demo1").innerHTML = pups;
+            document.getElementById("demo2").innerHTML = pups.toString();
+            document.getElementById("demo3").innerHTML = pups.join(" | ");
+
+            //  POP() and PUSH()   (END)
+            document.getElementById("demo4").innerHTML = pups.pop();   //  REMOVE END element from array
+            var x = pups.push("Barn");     //  ADD to END -- Return array length
+            document.getElementById("demo5").innerHTML = pups;   //  Display
+
+            //  SHIFT and UNSHIFT  (BEGINNING)
+            document.getElementById("demo6").innerHTML = pups.shift();  //  REMOVE BEGINNING
+            var y = pups.unshift("Sammy");  //  ADD to BEGINNING -- Return array length
+            document.getElementById("demo7").innerHTML = pups;  //  Display
+        }
+        myFunc2();
+
+
+
+        function myFunc3(){
+
+            var points = [40, 100, 1, 5, 25, 10];
+
+            //  Numeric Sort --  lowest to hightest:
+            points.sort(function(a,b){return a>b});
+            document.getElementById('demo8').innerHTML = points.join(" < ");
+
+            //  Numeric Sort --  highest to lowest:
+            points.sort(function(a,b){return a<b});
+            document.getElementById('demo9').innerHTML = points.join(" > ");
+
+            //  Find highest value in an array
+            points.sort(function(a,b){return a>b});
+            document.getElementById('demo10').innerHTML = points[0];
+
+            //  Find lowest value in an array
+            points.sort(function(a,b){return a<b});
+            document.getElementById('demo9').innerHTML = points[0];
+
+        }
+        myFunc3();
+
+
+
+
+
+
+
+    })();
+
+
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
