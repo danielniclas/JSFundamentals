@@ -37,6 +37,7 @@
         var result2 = myFunc2(3,4);
         document.getElementById('demo1').innerHTML = result2;     //  DOM manipulation
 
+        //  LOCAL SCOPE:
 
         function myFunc3(){
             var x = "Inside";       //  LOCAL SCOPE
@@ -74,9 +75,10 @@
         var message = myClosure();         //  Invoke CLOSURE
         document.getElementById('demo5').innerHTML = message;
 
+
         //  CLOSURE   CLOSURE    CLOSURE    CLOSURE    CLOSURE
-        //  Pass argument to LOCAL SCOPE
-        //  Pass argument to CLOSURE
+        //  >> Pass argument to LOCAL SCOPE
+        //  >> Pass argument to CLOSURE
 
         function myFunc6(firstName){
             var lastName = "Nibblet";
@@ -111,22 +113,88 @@
         }
 
         function parentFunction(parameter, callback){
-            fruitCollection.push(parameter);        //  <<  Push fruit on to array
-            callback(parameter);
+            fruitCollection.push(parameter);        //  <<  Push fruit on to array  -- Required 'EVENT'
+            callback(parameter);                    //  <<  CALLBACK
         }
 
         parentFunction("Noodle", printData);        //  Invoke parentFunction and pass arguments
 
+    })();
+
+//  Recursion stuff    Recursion stuff    Recursion stuff    Recursion stuffva
+
+    (function(){
+
+        //  countdown Loop:
+
+        var counter = 10;
+        while (counter>0) {
+            console.log("Counter:  " + counter --);
+        }
 
 
 
+        //  Recursion:  countdown
+
+        var countdown = function(value){
+
+            if (value > 0) {
+                console.log(value);             //  display value to console as call stack piles up
+                return countdown(value - 1);
+            }else{
+                return ("final value: " + value);
+            }
+        };
+
+        var finalValue = countdown(10);
+        console.log("Final Value: " + finalValue);
 
 
 
+        //  Recursion:  factorial
 
-
+        var factorial = function(number) {
+            if (number <= 0) {                  // terminal case
+                return 1;
+            } else {                            // block to execute
+                return (number * factorial(number - 1));
+            }
+        };
+        console.log("Factorial Result:  " + factorial(4));
 
     })();
+
+    //  Recursion:  factorial  >>  LOOP of results
+
+    function factFunc(value){
+
+        console.log("Random Number is:  " + ranNum);
+        for (var i = 1; i < (value + 1); i++ ) {
+
+            var factorial = function(i) {
+                if (i <= 0) {                  // terminal case
+                    return 1;
+                } else {                            // block to execute
+                    return (i * factorial(i - 1));
+                }
+            };
+            console.log("Loop " + i + " Factorial Result:  " + factorial(i));
+        }
+    }
+    var ranNum = Math.floor((Math.random() * 10) + 1);      //  Random Number between 1 and 10
+    factFunc(ranNum);
+
+
+    // Returns a random integer between min and max
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var ranNum = getRandomInt(40,60);
+    console.log("Random Number: " + ranNum);
+
+
 
 </script>
 

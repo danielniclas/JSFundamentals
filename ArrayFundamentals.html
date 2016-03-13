@@ -77,40 +77,30 @@
             var points = [40, 100, 1, 5, 25, 10];
 
             //  Numeric Sort --  lowest to hightest:
-            points.sort(function(a,b){return a>b});
+            points.sort(function(a,b){return a-b});
             document.getElementById('demo8').innerHTML = points.join(" < ");
 
             //  Numeric Sort --  highest to lowest:
-            points.sort(function(a,b){return a<b});
+            points.sort(function(a,b){return b-a});
             document.getElementById('demo9').innerHTML = points.join(" > ");
 
             //  Find highest value in an array
-            points.sort(function(a,b){return a>b});
+            points.sort(function(a,b){return a-b});
             document.getElementById('demo10').innerHTML = points[0];
 
             //  Find lowest value in an array
-            points.sort(function(a,b){return a<b});
-            document.getElementById('demo9').innerHTML = points[0];
+            points.sort(function(a,b){return b-a});
+            document.getElementById('demo11').innerHTML = points[0];
 
         }
         myFunc3();
 
-
-
-
-
-
-
     })();
-
 
 
 </script>
 
-
-
-
-
-
 </body>
 </html>
+
+

@@ -18,7 +18,7 @@
 
 
 <script>
-    //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX
+    //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  >>  From Local Text File
     var xmlhttp = new XMLHttpRequest();           //  AJAX CALL to 'myTutorials.txt' for displayArray() Function Below
     var url = "myTutorials.txt";                  //  <<  GET COLLECTION with AJAX!!
 
@@ -64,7 +64,8 @@
     }
 
     //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //  AJAX JSON OBJECT from TREEHOUSE.COM:     AJAX TREEHOUSE    AJAX TREEHOUSE    AJAX TREEHOUSE
+    //  STANDARD AJAX Request (from Browser Side): >>  JSON OBJECT from TREEHOUSE.COM:     AJAX TREEHOUSE    AJAX TREEHOUSE
+    //  >>  WILL NOT WORK IN NODE:  No XMLHttpRequest OBJECT on Server Side - Only Browser Side Object
 
 function getUser(username){
 
@@ -82,34 +83,52 @@ function getUser(username){
         xmlhttp.open("GET", url, true);
         xmlhttp.send();                             //  AJAX part COMPLETE
 
-        //  readyState    Holds the status of the XMLHttpRequest. Changes from 0 to 4:
+        //  READYSTATE:    Holds the status of the XMLHttpRequest. Changes from 0 to 4:
         //  0: request not initialized
         //  1: server connection established
         //  2: request received
         //  3: processing request
         //  4: request finished and response is ready
 
-        //  status
+        //  STATUS:
         //  200:  "OK"
         //  404:  "Page not found"
 
         //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  - END
 
 
-        //  Display Results  <<  ARRAY (from AJAX) PASSED TO THIS FUNCTION
-        function displayArray(myObject) {
-        console.log(myObject);
+    //  Print Function:
+    function printMessage(username, badgeCount, points) {
+        var message = username + " has " + badgeCount + " total badge(s) and " + points + " points in JavaScript";
+        document.getElementById('id04').innerHTML = message;
+        console.log(message);
+    }
 
-            var message = "<ul>";
-            for (var x in myObject){        //  LOOP through returned OBJECT
-                message += "<li> Key: " + x + " | Value: " + myObject[x] + "</li>"
-            }
-            message += "</ul>";
+        function displayArray(myObject) {      //  called ABOVE
 
-        document.getElementById("id03").innerHTML = message;
+            //  >> Display Results  <<  ARRAY (from AJAX) PASSED TO THIS FUNCTION
+            console.log(myObject);
+
+                var message = "<ul>";
+                for (var x in myObject){        //  LOOP through returned OBJECT
+                    message += "<li> Key: " + x + " | Value: " + myObject[x] + "</li>"
+                }
+                message += "</ul>";
+
+                document.getElementById("id03").innerHTML = message;
+
+            //  >> Display Results  <<  with printMessage Function
+            var profile = myObject;
+            printMessage(username, profile.badges.length, profile.points.JavaScript);    //  Invoke printMessage(1,2,3)
         }
     }
     getUser("danielniclas");
+
+    //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    //  NODE HTTP Request:  AJAX JSON OBJECT from TREEHOUSE.COM:     AJAX TREEHOUSE    AJAX TREEHOUSE    AJAX TREEHOUSE
+
+    //  >>>  See file:  nodeAJAX
+
 
 </script>
 
