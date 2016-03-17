@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        .overlay {
+            position: relative;
+            color: white;
+            height: 100%;
+            width: 500px;
+            padding: 10px;
+            top: -100px;
+            z-index: 10;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>Image 1</h1>
+<div class="outer">
+
+</div>
+<img alt="Image titled Make Beaded Curtains Step 3" src="http://pad1.whstatic.com/images/thumb/f/f5/Make-Beaded-Curtains-Step-3-Version-3.jpg/670px-Make-Beaded-Curtains-Step-3-Version-3.jpg" width="670" height="503" class="whcdn">
+
+<h1>Image 2</h1>
+<img alt="Image titled Make Beaded Curtains Step 5" src="http://pad2.whstatic.com/images/thumb/6/60/Make-Beaded-Curtains-Step-5-Version-2.jpg/670px-Make-Beaded-Curtains-Step-5-Version-2.jpg" width="670" height="503" class="whcdn">
+
+<h1>Image 3</h1>
+<img image src="http://pad2.whstatic.com/images/thumb/9/90/Write-Fight-Scenes-Step-11.jpg/-crop-126-120-126px-Write-Fight-Scenes-Step-11.jpg" alt="Write Fight Scenes" />
+
+
+<script>
+
+    //We have a HTML which contains some images
+    //After the page is loaded, we’d like to load our script (you’ll write this script)
+    //The script scans the whole page and finds all the images larger than 200x200
+    //The script detects the “alt” and “filename” of the images
+    //The script prints the “alt” value and “filename” as a caption is overlayed on the bottom of the image.
+
+
+    var collection = document.getElementsByTagName('img');
+    var collectionX = document.images;
+    var collectionLength = collection.length;
+    var currentImage, imgAlt, imgSrc, filename;
+    var text = "";
+
+    var i = 0;
+
+    for (i; i<collectionLength; i++ ) {
+
+        currentImage = collection[i];
+
+        if (currentImage.width>200 &&  currentImage.height>200){
+            imgAlt = currentImage.getAttribute('alt');
+            imgSrc = currentImage.getAttribute('src');
+
+            filename = imgSrc.replace(/^.*[\\\/]/, '');
+
+            caption = document.createElement('div');
+            caption.setAttribute("class", "overlay");
+            text = "<ul><li>" + imgAlt + "</li><li>" + filename + "</li></ul>";
+            caption.innerHTML = text;
+
+            currentImage.parentNode.insertBefore(caption,currentImage.nextSibling);
+
+        }
+    }
+
+</script>
+</body>
+</html>
