@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- BOOTSTRAP:  Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- BOOTSTRAP:  Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+
+    <!--jQuery-->
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+
+<style>
+    .hide {
+        visibility: hidden;
+        }
+
+    .visible {
+        visibility: visible;
+    }
+
+</style>
+
+
+
+</head>
+<body>
+
+<div class="row">
+
+    <div class="col-md-1">.col-md-1</div>
+
+    <div class="col-md-8">
+
+        <h2>Bootstrap Form and Input + Table</h2>
+
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-1">.col-md-1</div>
+
+
+    <div class="col-md-8">
+
+        <div class="form-group has-success has-feedback">
+            <label class="control-label" for="inputSuccess2">Input with success</label>
+            <input type="text" value="" class="form-control" id="inputSuccess2" aria-describedby="inputSuccess2Status">
+            <span id="checkIcon" class="glyphicon glyphicon-ok form-control-feedback hide" aria-hidden="true"></span>
+            <span id="inputSuccess2Status" class="sr-only">(success)</span>
+            <span id="helpBlock2" class="help-block">Please enter a value.</span>
+        </div>
+
+        <div class="form-group has-warning has-feedback">
+            <label class="control-label" for="inputWarning2">Input with warning</label>
+            <input type="text" class="form-control" id="inputWarning2" aria-describedby="inputWarning2Status">
+            <span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+            <span id="inputWarning2Status" class="sr-only">(warning)</span>
+        </div>
+        <div class="form-group has-error has-feedback">
+            <label class="control-label" for="inputError2">Input with error</label>
+            <input type="text" class="form-control" id="inputError2" aria-describedby="inputError2Status">
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+            <span id="inputError2Status" class="sr-only">(error)</span>
+        </div>
+        <div class="form-group has-success has-feedback">
+            <label class="control-label" for="inputGroupSuccess1">Input group with success</label>
+            <div class="input-group">
+                <span class="input-group-addon">@</span>
+                <input type="text" class="form-control" id="inputGroupSuccess1" aria-describedby="inputGroupSuccess1Status">
+            </div>
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+            <span id="inputGroupSuccess1Status" class="sr-only">(success)</span>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+
+function validate (){
+    var inputValue = document.getElementById('inputSuccess2').value;
+    var warningMessage = document.getElementById('helpBlock2');
+    var checkIcon = $("#checkIcon");        //  jQuery
+
+    console.log("Input Value: " + inputValue);
+    if (inputValue == ""){
+        console.log("Input Value = ' '");
+        warningMessage.setAttribute("class", "visible");
+        checkIcon.addClass("hide");         //  jQuery ADD a NEW CLASS to the existing list
+        checkIcon.removeClass("visible");   //  jQuery REMOVE a CLASS from the existing list
+    } else {
+        warningMessage.setAttribute("class", "hide");
+        checkIcon.addClass("visible");
+        checkIcon.removeClass("hide");
+        console.log("Input Value = 'xxx'");
+    }
+}
+
+    //  ADD EVENT LISTENERS:
+    var inputElement = document.getElementById('inputSuccess2');
+    inputElement.addEventListener("focus", validate);
+    inputElement.addEventListener("keyup", validate);
+
+
+</script>
+
+
+
+
+<div class="container">
+    <h2>Tables</h2>
+</div>
+
+<table class="table table-striped">
+    ...
+</table>
+
+
+
+</body>
+</html>

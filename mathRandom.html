@@ -13,12 +13,14 @@
 <script type="text/javascript">
 
     // Returns a random integer between min and max.
-
+    //  RANDOM NUMBER GENERATOR with MIN and MAX:
     function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
     var ranNum = getRandomInt(40,60);       // << Enter min and max  --  answer is returned and assigned to var ranNum
+    //  END Random Number Generator
+
+
     console.log("Random Number: " + ranNum);
     document.getElementById('demo').innerHTML = "<h2> Random Number: " + ranNum + "</h2>"
 

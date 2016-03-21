@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<div id="demo"></div>
+<div id="demo1"></div>
+<div id="demo2"></div>
+<div id="demo3"></div>
+<div id="demo4"></div>
+<div id="demo5"></div>
+<div id="demo6"></div>
+<div id="demo7"></div>
+<div id="demo8"></div>
+<div id="demo9"></div>
+
+
+<script type="text/javascript">
+
+
+//
+//1. Generate a list, with 30 elements, random numbers within [0-100].
+//2. Generate a random number between 40-60 as threshold.
+//3. Within the list, find the largest subset of the list, where the difference between any two elements is smaller than threshold generated in step 2. If there are subsets have same size, return all of them.
+//
+//        example:
+//list: [35, 37, 93, 17]
+//thres: 52
+//output: [[35, 37, 17]]
+//*/
+//
+
+// Returns a random integer between min and max:
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+//  Random Number Generator - End
+
+function random(){
+
+    var collection = [];
+    var newCollection = [];
+
+    var threshold = getRandomInt(0,2);
+
+    for (var i = 0; i < 30; i++) {
+        var ranValue = getRandomInt(0,100);
+        collection[i] = ranValue;
+    }
+    //  Sort highest to lowest:
+    collection.sort(function(a,b){return b-a});
+
+    var calc = function(x) {
+
+        for (var i= 0; i < collection.length; i++) {
+            console.log("Iterator: " + i);
+            console.log("Array Value: " + x);
+            console.log("Subtract: " + collection[i]);
+            console.log("Diff: " + (x - collection[i]));
+            console.log(" ");
+            if ((x - collection[i]) < threshold && (x - collection[i]) != 0 && (x - collection[i]) > 0) {
+                newCollection.push(x);
+                newCollection.push(collection[i])
+            }
+        }
+    };
+
+    var removeDup = function(element, pos, array){                //  Call Back for filter() method. Remove duplicates from the Array
+        console.log("Element: " + element);
+        console.log("array.indexOf(element): " + array.indexOf(element));   //  indexOf() finds the FIRST index
+        console.log("Pos: " + pos);
+        return array.indexOf(element) == pos;
+    };
+
+
+    collection.forEach(calc);
+    filteredCollection = newCollection.filter(removeDup);
+
+    console.log("Original Collection: " + collection);
+    console.log("Threshold: " + threshold);
+    console.log("New Collection: " + newCollection);
+    console.log("Filtered Collection: " + filteredCollection);
+
+}
+random();
+
+
+function test(){
+
+    var collection = [35, 37, 93, 17];
+    var currentItem, lastNumber;
+    var newCollection = [];
+    var threshold = 52;
+
+    //  Sort highest to lowest:
+    collection.sort(function(a,b){return b-a});
+
+
+    var calc = function(x) {
+
+        for (var i= 0; i < collection.length; i++) {
+            console.log("Iterator: " + i);
+            console.log("Array Value: " + x);
+            console.log("Subtract: " + collection[i]);
+            console.log("Diff: " + (x - collection[i]));
+            console.log(" ");
+            if ((x - collection[i]) < 52 && (x - collection[i]) != 0 && (x - collection[i]) > 0) {
+                newCollection.push(x);
+                newCollection.push(collection[i])
+            }
+        }
+    };
+
+    var removeDup = function(element, pos, array){                //  Call Back for filter() method. Remove duplicates from the Array
+        console.log("Element: " + element);
+        console.log("array.indexOf(element): " + array.indexOf(element));   //  indexOf() finds the FIRST index
+        console.log("Pos: " + pos);
+        return array.indexOf(element) == pos;
+    };
+
+    collection.forEach(calc);
+    filteredCollection = newCollection.filter(removeDup);       //  filter() returns a new array (filtered Collection) with the elements that return true
+
+    console.log("Original Collection: " + collection);
+    console.log("Threshold: " + threshold);
+    console.log("New Collection: " + newCollection);
+    console.log("Filtered Collection: " + filteredCollection);
+
+}
+//test();
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
