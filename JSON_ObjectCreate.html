@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<h2>JSON Object Creation in JavaScript -- JSON.parse(json Object)</h2>
+<table id="demo"></table>
+
+<h2>JSON.stringify(JS Object) >>  JSON string</h2>
+<div id="demo1"></div>
+
+<script type="text/javascript">
+
+    var json = '{ "employees" : [' +                                //  <<  JSON String
+            '{ "firstName":"John" , "lastName":"Doe" },' +
+            '{ "firstName":"Anna" , "lastName":"Smith" },' +
+            '{ "firstName":"Peter" , "lastName":"Jones" } ]}';
+
+    var obj = JSON.parse(json);                                    //  Object: { employees: [{},{},{}] }
+
+    var employeeArray = obj.employees;          //  => Array with three objects:  [{},{},{}]
+
+    var i;
+    var text = "<tr>";
+
+    for (i=0;i<employeeArray.length; i++) {     //  each item in the array is an OBJECT with two key-value pairs
+
+        currentEmployee = employeeArray[i];
+        text += "<td>" + currentEmployee.firstName + "</td>";
+        text += "<td>" + currentEmployee.lastName + "</td>";
+        text += "</tr>"
+    }
+
+    document.getElementById('demo').innerHTML = text;
+
+    document.getElementById('demo1').innerHTML = JSON.stringify({ firstName:"John" , lastName:"Doe" });
+
+</script>
+
+
+</body>
+</html>
