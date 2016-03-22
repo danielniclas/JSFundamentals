@@ -18,4 +18,4 @@ var mookArray = [
 ];
 
 
-myFunction(mookArray);
+myFunction(mookArray);      //  Invoke myFunction() and pass the mookArray

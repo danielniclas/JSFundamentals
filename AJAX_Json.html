@@ -18,14 +18,27 @@
 
 
 <script>
-    //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  >>  From Local Text File
+
+    //  1.  Standard AJAX       >>  JSON String:  myTutorials.txt
+
+    //  READYSTATE:    Holds the status of the XMLHttpRequest. Changes from 0 to 4:
+    //  0: request not initialized
+    //  1: server connection established
+    //  2: request received
+    //  3: processing request
+    //  4: request finished and response is ready
+
+    //  STATUS:
+    //  200:  "OK"
+    //  404:  "Page not found"
+
     var xmlhttp = new XMLHttpRequest();           //  AJAX CALL to 'myTutorials.txt' for displayArray() Function Below
-    var url = "myTutorials.txt";                  //  <<  GET COLLECTION with AJAX!!
+    var url = "myTutorials.txt";                  //  <<  GET COLLECTION with AJAX!!   JSON String:  myTutorials.txt
 
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var myArr = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText
+            var myArr = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText  <<  Convert JSON string to JavaScript OBJECT
             displayArray(myArr);                                //  <<  Invoke the Display Function, PASS ARRAY
         }
     };
@@ -51,7 +64,7 @@
     }
 
     //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //  THIS FUNCTION ACCESS the JSON via the <script> tag REFERENCE APPROACH -- <script> tag BELOW:
+    //  2.  Standard AJAX:  THIS FUNCTION ACCESS the JSON via the <script> tag REFERENCE APPROACH -- <script> tag BELOW:
 
     function myFunction(arr) {         // <<  ACCESS JSON.JS  myFunction(mookArray) is CALLED IN THE JS FILE
         var text = "";
@@ -64,8 +77,10 @@
     }
 
     //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    //  STANDARD AJAX Request (from Browser Side): >>  JSON OBJECT from TREEHOUSE.COM:     AJAX TREEHOUSE    AJAX TREEHOUSE
-    //  >>  WILL NOT WORK IN NODE:  No XMLHttpRequest OBJECT on Server Side - Only Browser Side Object
+
+
+    //  3.  STANDARD AJAX Request (from Browser Side): >>  JSON OBJECT from TREEHOUSE.COM:     AJAX TREEHOUSE    AJAX TREEHOUSE
+    //  >> ( WILL NOT WORK IN NODE:  No XMLHttpRequest OBJECT on Server Side - Only Browser Side Object )
 
 function getUser(username){
 
@@ -75,7 +90,7 @@ function getUser(username){
 
         xmlhttp.onreadystatechange = function() {               //  EVENT:  onreadystatechange
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-        var myObject = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText
+        var myObject = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText  <<  Convert JSON string to JavaScript OBJECT
         displayArray(myObject);                                //  <<  Invoke the Display Function, PASS ARRAY
             }
         };
@@ -97,20 +112,20 @@ function getUser(username){
         //  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  AJAX  - END
 
 
-    //  Print Function:
-    function printMessage(username, badgeCount, points) {
-        var message = username + " has " + badgeCount + " total badge(s) and " + points + " points in JavaScript";
-        document.getElementById('id04').innerHTML = message;
-        console.log(message);
-    }
+        //  Print Function:
+        function printMessage(username, badgeCount, points) {
+            var message = username + " has " + badgeCount + " total badge(s) and " + points + " points in JavaScript";
+            document.getElementById('id04').innerHTML = message;
+            console.log(message);
+        }
 
-        function displayArray(myObject) {      //  called ABOVE
+        function displayArray(myObject) {      //  called from ABOVE
 
             //  >> Display Results  <<  ARRAY (from AJAX) PASSED TO THIS FUNCTION
             console.log(myObject);
 
                 var message = "<ul>";
-                for (var x in myObject){        //  LOOP through returned OBJECT
+                for (var x in myObject){        //  LOOP through returned OBJECT   <<  JavaScript OBJECT prepared from JSON String (above)
                     message += "<li> Key: " + x + " | Value: " + myObject[x] + "</li>"
                 }
                 message += "</ul>";
@@ -122,7 +137,7 @@ function getUser(username){
             printMessage(username, profile.badges.length, profile.points.JavaScript);    //  Invoke printMessage(1,2,3)
         }
     }
-    getUser("danielniclas");
+    getUser("danielniclas");    //  Invoke
 
     //  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     //  NODE HTTP Request:  AJAX JSON OBJECT from TREEHOUSE.COM:     AJAX TREEHOUSE    AJAX TREEHOUSE    AJAX TREEHOUSE

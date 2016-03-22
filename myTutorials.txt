@@ -1,6 +1,6 @@
 [
 {
-"display": "JavaScript Tutorial",
+"display": "JavaScript Tutorial - AJAX_Json.html",
 "url": "http://www.w3schools.com/js/default.asp"
 },
 {
