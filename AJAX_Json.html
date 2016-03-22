@@ -17,7 +17,7 @@
 <div id="id08"></div>
 
 
-<script>
+<script type="text/javascript">
 
     //  1.  Standard AJAX       >>  JSON String:  myTutorials.txt
 
@@ -38,7 +38,7 @@
 
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var myArr = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText  <<  Convert JSON string to JavaScript OBJECT
+            var myArr = JSON.parse(xmlhttp.responseText);       //  JSON.parse(1)  1.  xmlhttp.responseText  <<  Convert JSON string to JavaScript Array of Objects
             displayArray(myArr);                                //  <<  Invoke the Display Function, PASS ARRAY
         }
     };
@@ -51,7 +51,7 @@
 
         var text = "";
         var i;
-        for(i = 0; i < arr.length; i++) {       //  LOOP through ARRAY of OBJECTS
+        for(i = 0; i < arr.length; i++) {       //  for LOOP through ARRAY of OBJECTS
 
             var currentObject = arr[i];         //  Iterate over [array] of {objects}
 
@@ -125,8 +125,8 @@ function getUser(username){
             console.log(myObject);
 
                 var message = "<ul>";
-                for (var x in myObject){        //  LOOP through returned OBJECT   <<  JavaScript OBJECT prepared from JSON String (above)
-                    message += "<li> Key: " + x + " | Value: " + myObject[x] + "</li>"
+                for (var item in myObject){        //  LOOP through returned OBJECT   <<  JavaScript OBJECT prepared from JSON String (above)
+                    message += "<li> Key: " + item + " | Value: " + myObject[item] + "</li>"
                 }
                 message += "</ul>";
 
