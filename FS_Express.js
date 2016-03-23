@@ -28,14 +28,13 @@ app.get('/', function(req, res){        //  app.get(1,2)  is the METHOD to add R
             res.end('500 - Internal Error');
         }else{
 
-            var dataObject = JSON.parse(data);
-            console.log("data: "+ dataObject);
+            var dataObject = JSON.parse(data);      //  Convert JSON String to JavaScript Object
 
             var currentObject = {};
             var message = " ";
             for (var i = 0; i < dataObject.length; i++){        //  Iterate Array of Objects
                 currentObject = dataObject[i];
-                message += '<a href ="' + currentObject.url + '">' + currentObject.display + '</a><br>';  //  Display object.url and object.display
+                message += '<a href ="' + currentObject['url'] + '">' + currentObject.display + '</a><br>';  //  Display object.url and object.display
             }
 
             res.writeHead(200,{'Content-Type': 'text/html'});
@@ -45,6 +44,12 @@ app.get('/', function(req, res){        //  app.get(1,2)  is the METHOD to add R
 
     //res.type('text/plain');
     //res.send('Hello From Home Page');
+
+});
+
+app.get('/api', function(req, res){
+    res.type('text/plain');
+    res.send('API to be available here soon')
 
 });
 

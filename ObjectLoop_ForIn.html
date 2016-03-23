@@ -41,7 +41,7 @@
     for (i=0; i<puppies.length; i++) {
 
         var currentItem = puppies[i];
-        txt += "<li>" + currentItem.name + " | " + currentItem.color + "</li>"
+        txt += "<li>" + currentItem.name + " | " + currentItem['color'] + "</li>";       //  Notice two ways to access JS Object Properties
     }
     txt += "</ul>";
 
@@ -63,7 +63,7 @@
         var currentItm = poopers[z];        // current Array Item:  {1,2}
 
         for (item in currentItm){           //  Loop through Object Properties
-            var prop = (p == 1)? "name": "color";   //  Ternary to pick the Property name (name or color)
+            var prop = (p == 1)? "name" : "color";   //  Ternary to pick the Property name (name or color)
             msg += " | " + item + " : "  + currentItm[prop]    + "<br>";
             p++;
         }
