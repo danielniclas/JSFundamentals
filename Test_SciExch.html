@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Check for string rotation:    david    avidd</title>
+</head>
+<body>
+
+<div id="demo"></div>
+
+
+<script type="text/javascript">
+
+//  Check for string rotation:    david    avidd
+
+function compare(stringOne, stringTwo) {
+
+    var currentChar, testCharIndex, testChar;
+    var currentCharTwo, testCharIndexOne, testCharOne;
+    var stringArray = [], testArray = [];
+    var stringArrayX = [], testArrayX = [];
+
+    if (stringOne.length != stringTwo.length) {                  //  Test 1:  for identical string length
+        printResult(stringOne, stringTwo, "false");
+        return false;
+    } else {
+
+        for (var i = 0; i < stringOne.length; i++) {             //  Build arrays for stringOne vs. stringTwo and stringTwo vs. stringOne
+
+            currentChar = stringOne[i];                          //  current character for stringOne (Primary string)
+            testCharIndex = (stringTwo.indexOf(currentChar));    //  index of stringTwo where current character of stringOne located
+            testChar = stringTwo[testCharIndex];                 //  stringTwo character at the index determined above
+
+            stringArray.push(currentChar);                       //  create array of characters from stringOne (Primary string)
+            testArray.push(testChar);                            //  create array of characters from stringTwo
+
+            currentCharTwo = stringTwo[i];                          //  current character for stringTwo (Primary string)
+            testCharIndexOne = (stringOne.indexOf(currentCharTwo)); //  index of stringOne where current character of stringTwo located
+            testCharOne = stringOne[testCharIndexOne];              //  stringOne character at the index determined above
+
+            stringArrayX.push(currentCharTwo);                  //  create array of characters from stringTwo (Primary string)
+            testArrayX.push(testCharOne);                       //  create array of characters from stringOne
+        }
+
+        console.log("stringOne Array: " + stringArray);
+        console.log("stringTwo Array: " + testArray);
+
+        console.log("stringTwo Array: " + stringArrayX);
+        console.log("stringOne Array: " + testArrayX);
+
+
+        var concat = stringOne.concat(stringOne);               //  concat >> for string rotation test
+
+        console.log("concat:  " + concat);
+        console.log("Concat search() result: "+ concat.search(stringTwo));
+
+
+        for (var j = 0; j < stringArray.length; j++) {          //  Test 2:  compare characters of stringOne array with stringTwo array
+            if (stringArray[j] != testArray[j]) {               //  if any characters do not match return false
+                printResult(stringOne, stringTwo, "false");
+                return false;
+            }
+        }
+
+        for (var a = 0; a < stringArrayX.length; a++) {         //  Test 3:  compare characters of stringTwo array with stringOne array
+            if (stringArrayX[a] != testArrayX[a]) {             //  if any characters do not match return false
+                printResult(stringOne, stringTwo, "false");     //  This redundant testing is due to the behavior of indexOf()
+                return false;
+            }
+        }
+
+        if ((concat.search(stringTwo) == -1)){                  //  Test 4: Rotation test - search() returns -1 if no match found
+            printResult(stringOne, stringTwo, "false");
+            return false;
+        }else{
+            printResult(stringOne, stringTwo, "true");
+            return true;
+        }
+    }
+}
+var result = compare("david", "avidd");
+    console.log("Rotation test result: " + result);
+
+
+function printResult(stringOne, stringTwo, result){
+document.getElementById('demo').innerHTML = "<h2> Is '" + stringTwo + "' a string rotation of '" + stringOne  + "' ? " + result + "</h2>";
+}
+
+</script>
+
+</body>
+</html>
