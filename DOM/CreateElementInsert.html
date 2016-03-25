@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <style>
+        .demo {border: 2px solid red;}
+    </style>
+
+</head>
+<body>
+
+
+<div id="div1">
+    <p id="p1">This is a paragraph (child).</p>
+    <p id="p2">This is another paragraph.</p>
+</div>
+
+<script type="text/javascript">
+
+    //  JavaScript:
+    (function(){
+        var newP = document.createElement("p");
+        var node = document.createTextNode("This is new.");
+        newP.appendChild(node);
+
+        var parentDiv = document.getElementById("div1");
+        var child = document.getElementById("p1");
+        parentDiv.insertBefore(newP,child);         //  insertBefore(1,2)  1.  element being inserted  2.  inserted before this element
+    })();
+
+    //  jQuery:
+    (function(){
+        var newDiv = $("<div class='demo'> This is my new div </div>");
+        $('#div1').append(newDiv);
+    })();
+
+</script>
+
+
+</body>
+</html>

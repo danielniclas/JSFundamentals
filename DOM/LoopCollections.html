@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<h3>Array List 1</h3>
+<div id="id1"></div>
+
+<h3>Replace For Loop with forEach()</h3>
+<div id="forEach"></div>
+
+<div id="id2"></div>
+
+<script type="text/javascript">
+
+
+    //  FOR LOOP
+    var array = ['Mook', 'Barn', 'Koost', 'Nibs'];      //  << COLLECTION   [Simple Array]
+
+    var i;
+    var arrayLength = array.length;
+    var sorted = array.sort();          //  ALPHABETIZE ARRAY
+
+    var message = "<ul>";
+    for (i=0; i<arrayLength; i++ ){                         //  for Loop
+        currentItem = sorted[i];
+
+        message += "<li>" + currentItem + "</li>";          //  CREATE ENTIRE ELEMENT
+    }
+    message += "</ul>";
+    document.getElementById('id1').innerHTML = message;
+
+
+    (function(){                                            //  forEach() instead of for Loop
+
+        var array = ['Mook', 'Barn', 'Koost', 'Nibs'];
+
+        var message = "<ul>";
+        function messageBuilder (element, index, array){
+            message += "<li>" + element + " at index: " + index + "</li>";
+        }
+        message += "</ul>";
+
+        array.forEach(messageBuilder);                      //  forEach()  forEach()   forEach()    forEach()
+        document.getElementById('forEach').innerHTML = message;
+    })();
+
+
+</script>
+
+
+
+
+<script>
+    //  Collection:  Array of Objects    [{},{},{}]    - multiple key:value pairs
+    //  FOR LOOP
+    var puppies = [{name: 'MookORs', color: 'yellow'},{name: 'Nibbs', color: 'red'},{name: 'Koost', color: 'black'}];
+
+    var i;
+    var txt = "<ul>";
+    for (i=0; i<puppies.length; i++) {
+
+        var currentItem = puppies[i];
+        txt += "<li>" + currentItem.name + " | " + currentItem['color'] + "</li>";     //  object.property  + object['property']
+    }
+    txt += "</ul>";
+
+    document.getElementById('id2').innerHTML=txt;
+
+
+</script>
+
+
+
+<h3>-- End --</h3>
+<h3>Array List 2</h3>
+
+<div id="demo"></div>
+
+<script>
+    //  FOR LOOP
+    var array = ['Mook', 'Barn', 'Koost', 'Nibs'];
+
+    var i;
+    var arrayLength = array.length;
+    var sorted = array.sort();                              //  alphabetical sort
+
+    var ul = document.createElement('ul');                  //  create <ul></ul>
+
+    for (i=0; i<arrayLength; i++ ){
+        currentItem = sorted[i];                            //  CAPTURE CURRENT ITEM IN ARRAY!
+
+        var li = document.createElement('li');              //  CREATE ELEMENT
+        var node = document.createTextNode(currentItem);    //  CREATE TEXT NODE
+        li.appendChild(node);                               //  APPEND TEXT NODE
+        ul.appendChild(li);                                 //  APPEND <li> to to the <ul>
+    }
+
+    var element = document.getElementById('demo');
+    element.appendChild(ul);                                // append <ul> as child to <p id="demo">
+
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .color {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div id="demo">Mook</div>
+<div id="demo1">Barn</div>
+<div id="demo2">Nibbs</div>
+<div id="demo3">Koost</div>
+
+<script type="text/javascript">
+
+    // 1.
+
+    function sectionOne(){         //  indexOf()  lastIndexOf()  findIndex()  find()
+        //  indexOf(1,2)           returns first one found
+        //  lastIndexOf(1,2)       returns last one found
+        //  1.  Search an array for a specific value and get the array element index - if found
+        //      If value not found >>  returns -1
+
+        var animals = ["dog", "cat", "seal", "elephant", "walrus", "lion", "cat"];
+        console.log("Animals array: " + animals);
+        console.log("animals.indexOf('cat'):  " + animals.indexOf("cat"));
+        console.log("animals.lastIndexOf('cat'):  " + animals.lastIndexOf("cat"));
+
+        //  Two parameters  1.  search value  2.  setting where search is to start (optional)
+        console.log("animals.indexOf('cat',2):  " + animals.indexOf("cat",2));
+        console.log("animals.lastIndexOf('cat',4):  " + animals.lastIndexOf("cat",4));
+
+        //  findIndex()  ES6  --  provide a function that tests each array value, returning the index of the array element
+        var nums = [2,4,19,15,183,6,7,1,1];
+
+        var over = nums.findIndex(function(element){
+            return (element >= 10 );                    //  returns INDEX of element -- first one that evaluates to TRUE
+        });
+
+        console.log("findIndex() Return index value: " + over);     //  Index of first TRUE
+        console.log("findIndex() Array element: " + nums[over]);    //  Array element of first TRUE
+
+        //  find()  ES6 -- provide a function that tests each array value, returning the element
+        var overX = nums.find(function(element){
+            return (element >= 10 );                    //  returns INDEX of element -- first one that evaluates to TRUE
+        });
+        console.log("find() Return array element: " + overX);     //  Index of first TRUE
+        }
+    sectionOne();
+
+    //  2.
+
+    function sectionTwo(){      //  Flatten a TWO-DIMENSIONAL ARRAY
+        //  Flattening a Two-Dimensional Array with concat() and apply()
+        //  concat() to merge the multidimensional array into a single-dimensional array
+        var fruitArray = [];                            //  Multi-dimensional Array
+        fruitArray[0] = ['strawberry', 'orange'];
+        fruitArray[1] = ['lime','peach','banana'];
+        fruitArray[2] = ['tangerine','apricot'];
+        fruitArray[3] = ['raspberry','kiwi'];
+        console.log("Fruit Array: " + fruitArray);
+
+        //flatten the array
+        var newArray = fruitArray.concat.apply([],fruitArray);      //  apply() allows us to apply the function being called (concat)
+                                                                    //  given an array of arguments.
+                                                                    //  In this case the array of arguments is the original multidimensional array
+                                                                    //  empty array [] is first parameter - concat() works by concatenating the arrays into an existing array
+        console.log("Flattened array - newArray[5]: " + newArray[5]);
+    }
+    sectionTwo();
+
+    // 3.
+
+    function sectionThree() {    //  splice()  -- find and remove/replace array elements
+
+        //  A.  REMOVE OR REPLACE ONE ELEMENT
+
+        //  Find occurrences of a given value in an array, and either remove the element or replace with another one
+        var animals = ["dog", "cat", "seal", "elephant", "walrus", "lion", "cat"];
+
+        // remove element from array
+        animals.splice(animals.indexOf("walrus"), 1);  //  splice(1,2,3)  1.  index where splicing takes place  2. (optional) number of elements to remove 3. (optional)  replacement element
+        console.log("splice(1,2) Remove walrus from array: " + animals);
+
+        //  splice in a new element(s)
+        animals.splice(animals.lastIndexOf('cat'), 1, "monkey");  //  splice(1,2,3)
+        console.log("splice(1,2,3) Remove cat and add monkey: " + animals);
+
+        animals.splice(2, 1, "zebra", "tiger", "puppy");  //  Add multiple elements to the array at index 2 after removing an element at index 2
+        console.log("splice(1,2,3) Add multiple elements: " + animals);
+
+        console.log(animals);               //  When array is combined with a string, it is auto toString()'d
+        console.log(animals.toString());    //  otherwise
+
+        //  splice from the end:  If the index is negative, elements will be spliced from the end rather than the beginning of the array
+        var animalsX = ["dog", "cat", "seal", "elephant", "walrus", "lion", "cat"];
+        animalsX.splice(-1, 1, "monkey");
+        console.log("splice(-1,1,'monkey') :" + animalsX);
+
+        //  splice all elements from index to the end:  leave out the number of elements to splice
+        animalsX.splice(2);
+        console.log("splice(2) :" + animalsX);
+
+        //  B.  REMOVE OR REPLACE ALL INSTANCES OF A PARTICULAR ELEMENT - even more handy!    splice() in a LOOP!
+        var charSets = ["ab", "bb", "cd", "ab", "cc", "ab", "dd", "ab"];
+
+        //  REMOVE and REPLACE all specific elements from array:
+        while (charSets.indexOf('ab') != -1) {                   //  while there is a MATCH with 'ab'  (  != -1 ) <<  indexOf will find the first match
+            charSets.splice(charSets.indexOf('ab'), 1, "**");     //  REMOVE one character at that index and replace with **  >>  then look for next match
+        }
+        console.log("Remove 'ab' from Array and replace with '**': >>" + charSets);
+
+        //  REMOVE specific element from array
+        while (charSets.indexOf('**') != -1) {
+            charSets.splice(charSets.indexOf('**'), 1);
+        }
+        console.log("Remove all '**' elements from Array: >>" + charSets);
+    }
+    sectionThree();
+
+    // 4.
+
+    function sectionFour() {        //  slice() -- Extract out a portion of an array but keep the original array intact
+                                    //  slice() extracts a shallow copy of a portion of an existing array
+                                    //  slice()  -- returns a NEW ARRAY
+        var animals = ['elephant','tiger','lion','zebra','cat','dog','rabbit','goose'];
+        var domesticAnimals = animals.slice(4,7);       //  slice(1,2)  1.  start index  2.  end index
+        console.log(" slice(1,2) - Domestic Animals: " + domesticAnimals);
+
+        //  slice() makes a shallow copy of a portion of the existing array, returning a new array
+        //  both arrays point to the same object - modifications to the object ion the new array are reflected in the same object in the old array
+
+        var myArray = [];
+        myArray[0] = ['apple','pear'];
+        myArray[1] = ['strawberry','lemon'];
+        myArray[2] = ['lime','peach','berry'];
+
+        var nArray = myArray.slice(1,2);
+        console.log("myArray[1]: " + myArray[1]);
+
+        nArray[0][0] = 'raspberry';
+        console.log("myArray[1]: " + myArray[1]);
+        console.log("nArray[0]: " + nArray[0]);
+    }
+    sectionFour();
+
+    // 5.
+
+    function sectionFive(){     //  forEach()  Applying a function against each array element - Traverse ARRAY!
+                                //  Problem:  use function to check array value and replace it if it matches a given criterion
+                                //  forEach(1)  Iterates each element in the array
+                                //  1.  CallBack Function
+
+        var charSets = ["ab", "bb", "cd", "ab", "cc", "ab", "dd", "ab"];
+
+        function replaceElement(element, index, array){     //  Callback(1,2,3)  1.  element  2.  index (optional)  3.  array (optional)
+            if (element == 'ab'){
+                array[index] = '**';                        //  DO NOT RETURN A VALUE!
+            }                                               //  Solution MUTATES the array
+        }
+        charSets.forEach(replaceElement);
+        console.log("forEach() replace each 'ab' with '**' - same as above with slice() in a loop:  " + charSets);
+
+    }
+    sectionFive();
+
+    //  6.
+
+    function sectionSix() {                               //  IMPORTANT TRICK CODE:  forEach() on a Node List >>  getElementsByTagName or querySelectorAll ...
+
+//        var divs = document.querySelectorAll("div");    //  This is a NodeList and not an ordinary Array
+
+        var divs = document.getElementsByTagName("div");  //  This is a NodeList and not an ordinary Array
+
+        function myFunc(element, index, array){
+            element.setAttribute("class","color");
+        }
+
+        [].forEach.call(divs,myFunc);               //  TRICK:  Get forEach() to work with the NodeList
+                                                    //  call forEach() on an EMPTY ARRAY
+                                                    //  use call() on the array object to emulate the effect of an Array method on the NodeList as if it was an actual array
+
+    }
+    sectionSix();
+
+    //  7.
+
+    function sectionSeven() {           //  map() --  Apply a function to every element in an array and return a NEW ARRAY
+
+
+    }
+    sectionSeven();
+
+
+
+
+</script>
+
+
+</body>
+</html>

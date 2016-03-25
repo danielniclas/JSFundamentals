@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+
+        .democlass {
+            color: blue;
+        }
+
+        .democlass2 {
+            color: red;
+        }
+
+    </style>
+
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+</head>
+<body>
+
+
+<h1>Mook</h1>
+<h1>Barn</h1>
+<h1>Koost</h1>
+<h1>Nibbs</h1>
+
+<h2>Mook</h2>
+<h2>Barn</h2>
+<h2>Koost</h2>
+<h2>Nibbs</h2>
+
+
+<script type="text/javascript">
+
+    //  JavaScript:  4 lines
+    var h1 = document.getElementsByTagName("H1")[0];   // Get the first <h1> element in the document
+    var att = document.createAttribute("class");       // Create a "class" attribute
+    att.value = "democlass";                           // Set the value of the class attribute
+    h1.setAttributeNode(att);                          //  Add the attribute NODE to the element
+
+    //  jQuery:  2 lines
+    var element = $('h2').get(1);
+    $(element).attr("class", "democlass2");
+
+    console.log(element);
+
+</script>
+
+
+</body>
+</html>
