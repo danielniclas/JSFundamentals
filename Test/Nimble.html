@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tax Calculator</title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+
+
+//    1500
+//    1000 x 0.1 + 500 x 0.2
+//
+//    4500
+//    1000 x 0.1 + 3000 x 0.2 + 500 x 0.3
+
+    var taxRate =   [[0, 0.1],      //  index 0
+                    [1000, 0.2],    //  index 1
+                    [4000, 0.3],    //  index 2
+                    [6000, 0.4]];   //  index 3
+
+    var totalTax = 0;
+
+    function calTax(income) {
+
+    if (typeof income == "number") {
+
+        if ((income > taxRate[3][0])) {
+
+            console.log("Income: " + income + " > "+ taxRate[3][0] + " - Tax Rate: " + taxRate[3][1]);
+            totalTax = ((income - taxRate[3][0])*taxRate[3][1]) +
+                    ((taxRate[3][0] - taxRate[2][0])*taxRate[2][1]) +
+                    ((taxRate[2][0] - taxRate[1][0])*taxRate[1][1]) +
+                    ((taxRate[1][0] - taxRate[0][0])*taxRate[0][1]);
+
+        } else if (((income > taxRate[2][0]))) {
+
+            console.log(taxRate[2][0] + " < Income: " + income + " < " +  taxRate[3][0] + " - Tax Rate: " + taxRate[2][1]);
+            totalTax = ((income - taxRate[2][0])*taxRate[2][1]) +
+                    ((taxRate[2][0] - taxRate[1][0])*taxRate[1][1]) +
+                    ((taxRate[1][0] - taxRate[0][0])*taxRate[0][1])
+
+        } else if (((income > taxRate[1][0]))){
+            console.log(taxRate[1][0] + " < Income: " + income + " < " +  taxRate[2][0] + " - Tax Rate: " + taxRate[1][1]);
+            totalTax = ((income - taxRate[1][0])*taxRate[1][1]) +
+                    ((taxRate[1][0] - taxRate[0][0])*taxRate[0][1])
+        } else {
+            console.log(taxRate[0][0] + " < Income: " + income + " < " + taxRate[1][0] + " - Tax Rate: " + taxRate[0][1]);
+            totalTax = (income)*taxRate[0][1];
+        }
+
+        console.log("Total Tax for income: " + income + " is: $" + totalTax);
+        console.log("");
+
+    }else{
+        console.log("ERROR:  Please enter a number");
+    }
+    }
+
+    var result = calTax(900);
+    var result = calTax(2000);
+    var result = calTax(5000);
+    var result = calTax(7000);
+    var result = calTax(7000.55);
+    var result = calTax("dan");
+    var result = calTax("");
+    var result = calTax();
+
+
+</script>
+
+
+</body>
+</html>

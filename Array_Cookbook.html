@@ -16,6 +16,15 @@
 <div id="demo2">Nibbs</div>
 <div id="demo3">Koost</div>
 
+
+<form action="action_page.php">
+    First name:<br>
+    <input type="text" name="firstname" value="Mickey"><br>
+    Last name:<br>
+    <input type="text" name="lastname" value="Mouse"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
 <script type="text/javascript">
 
     // 1.
@@ -149,7 +158,7 @@
     }
     sectionFour();
 
-    // 5.
+    // 5.                       //  forEach()
 
     function sectionFive(){     //  forEach()  Applying a function against each array element - Traverse ARRAY!
                                 //  Problem:  use function to check array value and replace it if it matches a given criterion
@@ -169,7 +178,7 @@
     }
     sectionFive();
 
-    //  6.
+    //  6.                        forEach() with NODE LIST
 
     function sectionSix() {                               //  IMPORTANT TRICK CODE:  forEach() on a Node List >>  getElementsByTagName or querySelectorAll ...
 
@@ -188,15 +197,89 @@
     }
     sectionSix();
 
-    //  7.
+    //  7.                        map()  >>  New Array
 
-    function sectionSeven() {           //  map() --  Apply a function to every element in an array and return a NEW ARRAY
+    function sectionSeven() {           //  map() --  Apply a function to every element (process each element) in an array and RETURN (new elements) to create a NEW ARRAY
+        var decArray = [23,255,122,5,16,99];
 
+        function convert(element, index, array){    //  convert array of DECIMAL numbers to new array with HEXADECIMAL equivalents
+            return element.toString(16);            //  must RETURN a VALUE >>  goes into new array!
+        }
+
+        var hexArray = decArray.map(convert);       //  map(CB) - create NEW ARRAY - modifying each array element of original array
+
+        console.log("map() - Decimal Array: " + decArray);
+        console.log("map() - Hexadecimal Array: " + hexArray);
 
     }
     sectionSeven();
 
+    //  8.                        filter()  >>  Returns New Array  (Based on TRUE or FALSE)
 
+    function sectionEight(){    //  filter() --  Filter element values in an array and assign the results to a new array
+
+        var charSet = ["**", "bb", "cd", "**", "cc", "**", "dd", "**"];
+
+        function filterStuff (element, index, array){   //  CallBack - Test for each element
+            return ( element !== "**");                 //  return:  TRUE or FALSE  (returns true if NOT **)
+        }
+
+        var newArray = charSet.filter(filterStuff);
+        console.log("filter() - New Array: " + newArray);
+    }
+    sectionEight();
+
+    //  9.                      VALIDATING  array contents:  every() and some()
+    //                          every()  -- check that EVERY element passes a TEST >> return true
+    //                          some() --  check that ONE or MORE elements passes a TEST
+    //                          If all array elements must meet a criterion use every(); otherwise use some()
+
+    function sectionNine(){
+
+        //  every()
+        var elementSet = ['**', 123, 'aaa', 'abc', '-', 'AAA'];
+
+        function testElement(element, index, array){
+            var textExp = /^[a-zA-Z]+$/;
+            return textExp.test(element);       //  RexExp Method:  test() >> returns TRUE or FALSE
+        }
+
+        var result = elementSet.every(testElement);
+        console.log("every() -- Does each element consist of alphabetical characters:  " + result);
+
+        //  some()
+        var elementSetX = ['**', 123, 'aaa', 'abc', '-', 'AAA'];
+
+        function testElementX(element, index, array){
+            var textExp = /^[a-zA-Z]+$/;
+            return textExp.test(element);       //  RexExp Method:  test() >> returns TRUE or FALSE
+        }
+
+        var resultX = elementSetX.some(testElementX);
+        console.log("some() --  Does at least one element consist of alphabetical characters: " + resultX);
+    }
+    sectionNine();
+
+    //  10.         JS Associative Array to store Form Element Names and Values
+
+    function sectionTen(){
+
+        var elemArray = new Object();  //  <<  Creating {OBJECT}!
+        var elem = document.forms[0].elements[0];                   //  first form on page and first element in form
+        console.log(elem);
+        elemArray[elem.id] = elem.value;                            //  CREATE:  Key Value PAIR  { key: "value"}
+
+        var keyArray = Object.keys(elemArray);                      //  CREATE:  Array of Keys
+        console.log(keyArray);
+
+        function setObjectValue (element, index, array){} {         //  Build Associate Array Object
+            var value = elemArray[element];
+        }
+
+        keyArray.forEach()
+
+    }
+    sectionTen();
 
 
 </script>
