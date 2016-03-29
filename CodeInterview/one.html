@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="demo"></div>
+<div id="demo2"></div>
+<div id="demo3"></div>
+<div id="demo4"></div>
+
+<script type="text/javascript">
+
+    //  1.1 Algorithm to determine if a string has all unique characters.  What if no additional data structures?
+
+    function unique(string) {
+        if (string.length > 256) return false;
+
+        for (var i = 0; i < string.length; i++) {
+            var currentChar = string.charAt(i);
+            console.log('currentChar: ' + currentChar);
+            console.log("string.indexOf(currentChar): " + string.indexOf(currentChar));
+
+            if (string.indexOf(currentChar) != i) {
+                console.log("False");
+                return false
+            }
+        }
+        console.log("True");
+        return true;
+    }
+
+    var result = unique('asdfghjklmnop');
+    document.getElementById('demo').innerHTML = "<h2> 1.1 String has all unique characters: " + result.toString().toUpperCase() + "</h2>";
+
+    //  1.2  Function reverse(char*str) reverses a null-terminated string
+
+    function reverse(string){
+
+        var length = string.length;
+        var array = [];
+
+        for (var i = 0; i < length; i++) {
+            currentChar = string.charAt(i);
+            array.unshift(currentChar);
+        }
+
+        var result = array.join('');    //  ARRAY to STRING with no commas
+        console.log(typeof result);
+        document.getElementById('demo2').innerHTML = "<h2> 1.2 Reverse of string: " + string.toUpperCase() + " is: " + result.toUpperCase() + "</h2>";
+    }
+    reverse("string");
+
+    //  1.3  Given two strings, method to decide if one is a permutation of the other
+
+    function permutation(stringOne, stringTwo){
+
+        var marker;
+
+        if (stringOne.length != stringTwo.length){
+            document.getElementById('demo3').innerHTML = "<h2> 1.3 stringOne:  " + stringOne.toUpperCase() + " is not the same length as " + stringTwo.toUpperCase();
+        }else {
+
+            var arrayOne = stringOne.split("");     //  creates ARRAYS from strings
+            var arrayTwo = stringTwo.split("");     //  creates ARRAYS from strings
+            console.log(arrayOne);
+            console.log(arrayTwo);
+
+            arrayOne.sort();
+            arrayTwo.sort();
+            console.log(arrayOne);
+            console.log(arrayTwo);
+
+            if (arrayOne.toString() === arrayTwo.toString()) {
+                marker = "TRUE"
+            } else {
+                marker = "FALSE"
+            }
+
+            document.getElementById('demo3').innerHTML = "<h2> 1.3 String One: " + stringOne.toUpperCase() + " is permutation of stringTwo: " + stringTwo.toUpperCase() + " : " + marker + "</h2>";
+        }
+    }
+    permutation("david", "ivadd");
+
+    //  1.4  Method to replace all spaces in a string with %20
+
+    function replace(string){
+
+        var stringArray = string.split("");
+        function replacer(element, index, array){
+            if(element == " "){
+                return ('%20')
+            } else {
+                return element
+            }
+        }
+        var newArray = stringArray.map(replacer);
+        var result = newArray.join("");             //  ARRAY to STRING with no commas
+        document.getElementById('demo4').innerHTML = "<h2>1.4 Replace spaces in the string: '" + string + "' with '%20' " + " Result:  '" + result + "' </h2>";
+
+    }
+    replace('abc def ghi');
+
+
+
+</script>
+
+
+</body>
+</html>
