@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="demo"></div>
+<div id="demo2"></div>
+<div id="demo3"></div>
+<div id="demo4"></div>
+<div id="demo5"></div>
+<div id="demo6"></div>
+
+
+<script>
+
+    //  Iterate through array:  index 0 to i<array.length
+    (function(){
+        var i, currentItem;
+        var daysOfWeek = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+
+        for (i=0; i<daysOfWeek.length; i++){
+            currentItem = daysOfWeek[i];
+            console.log(currentItem);
+        }
+    })();
+
+    //  Fibonacci sequence:
+    (function() {
+
+        var fibonacci = [];
+        fibonacci[1] = 1;           //  Fibonacci index 1 set to 1
+        fibonacci[2] = 2;           //  Fibonacci index 2 set to 2
+
+        for (var i = 3; i<20; i++){
+            fibonacci[i] = fibonacci[i-1] + fibonacci[i-2];     //  Fibonacci index 3 = index 2 + index 1  (addition of the two prior)
+        }
+
+        for (var j = 1; j<fibonacci.length; j++){               //  Loop to display the entire Fibonacci sequence
+            console.log(fibonacci[j]);
+        }
+
+        console.log("Array: " + fibonacci);                     //  Display the array as a string(because included in console.log(with string)
+
+    })();
+
+    //  ADDING and REMOVING elements from array: [Beginning - Add/Remove] unshift() / shift()     [End - Add/Remove]  push() / pop()
+
+    //  push() ADD element to END of array:
+    (function(){
+
+        var numbers = [0,1,2,3,4,5];        //  numbers.length = 6  Index: 0-5
+        numbers[numbers.length] = 6;        //  Add number to END  - like push()
+
+        numbers.push(7);
+        numbers.push(8,9);
+
+        console.log("Add number to end of array:");
+        console.log(numbers);
+
+    })();
+
+    (function(){
+
+        var numbers = [0,1,2,3,4,5];
+        var removedNumber = numbers.pop();
+
+        console.log("Remove numbers from end of array:");
+        console.log("Removed number: " + removedNumber);
+        console.log(numbers);
+
+    })();
+
+
+    //  Simulate unshift():  ADD new element to BEGINNING of the array
+    //  First need to free the first position
+
+    function simulateUnShift(newFruit) {
+
+        var fruits = ['oranges', 'apples', 'bananas'];            //  fruits.length = 3   Index:  0,1,2
+        var currentFruit;
+        for (var i = fruits.length; i >= 0; i--) {                //  loop from 3 to 0:  3,2,1,0  (There is no element at index 3)
+            currentFruit = fruits[i];
+            console.log("current index: " + i);
+            console.log("currentFruit: " + currentFruit);
+            fruits[i] = fruits[i - 1];                            //  Move terminal element (fruits[i-1] == fruits[2]) to fruits[i] == fruits[3]
+        }                                                         //  Assign fruit[2] to the fruit[3] position
+        fruits[0] = newFruit;
+
+        console.log(fruits);
+
+    }
+    simulateUnShift("grapes");
+
+    //  unshift():  ADD new element to BEGINNING of the array
+
+    (function(){
+        var numbers = [1,2,3];
+        numbers.unshift(0);             //  Add 0
+        numbers.unshift(-2,-1);         //  Add -1 and then -2
+        console.log(numbers);
+    })();
+
+
+    //  Simulate shift():  REMOVE or OVERWRITE a value from BEGINNING of an array
+
+    (function(){
+        var fruits = ['oranges', 'apples', 'bananas'];      //  fruits.length = 3   Index:  0,1,2
+        for (var i=0; i<fruits.length; i++){                //  Iterate: 0,1,2   (just like array index)
+            fruits[i] = fruits[i+1];                        //  Overwrite current fruit with fruit of next index   (note:  there is no fruit[3] so index 2 will be undefined)
+        }                                                   //  Length of the array is still the same
+        console.log(fruits);
+    })();
+
+    //  shift()
+
+    (function(){
+        var fruits = ['oranges', 'apples', 'bananas'];
+        var result = fruits.shift();
+        console.log("shift()");
+        console.log(fruits);
+        console.log("shift() result: " + result);
+    })();
+
+
+    //  splice() REMOVE + INSERT elements from ANY particular POSITION of array
+    //  specify position/index to REMOVE from + how many elements to remove
+
+    (function(){
+        var numbers = [1,2,3,4,5,6,7,8,9,10];       // length: 10   index: 0 - 9
+        numbers.splice(5,3);                        //  starting at index 5, remove 3 elements:  index 5,6,7:  elements: 6,7,8
+        console.log("splice(5,3):");
+        console.log(numbers);
+    })();
+
+    //  splice() INSERT elements into ANY POSITION of array
+
+    (function(){
+
+        var numbers = [1,2,3,4,5,6,7,8,9,10];
+        numbers.splice(5,0,3,3,3);                   //  5 - index to remove or insert    0 - number of elements to remove  3....  values to INSERT at index 5
+        console.log("splice(5,0,3,3,3):");
+        console.log(numbers);
+
+    })();
+
+
+    //  Two-dimensional and multi-dimensional ARRAYS
+
+
+    (function(){
+        var averageTemp = [];
+        //  day 1
+        averageTemp[0] = [];        //  First element in the averageTemp array is another array
+        averageTemp[0][0] = 72;
+        averageTemp[0][1] = 75;
+        averageTemp[0][2] = 79;
+        averageTemp[0][3] = 79;
+        averageTemp[0][4] = 81;
+        averageTemp[0][5] = 81;
+        //  day 2
+        averageTemp[1] = [];        //  Second element in the averageTemp array is another array
+        averageTemp[1][0] = 81;
+        averageTemp[1][1] = 79;
+        averageTemp[1][2] = 75;
+        averageTemp[1][3] = 75;
+        averageTemp[1][4] = 73;     //    Day 1                Day 2
+        averageTemp[1][5] = 72;     //  [[72,75,79,79,81,81], [81,79,75,75,73,72]]
+
+        function printMatrix(myMatrix){
+            for (var i=0;i<myMatrix.length;i++){                //  NESTED for LOOP
+                for (var j=0;j<myMatrix[i].length; j++){
+                    console.log("myMatrix: " + myMatrix[i][j]);
+                }
+            }
+        }
+        printMatrix(averageTemp);
+    })();
+
+    //  concat()
+
+    (function(){
+        var zero = 0;
+        var positiveNumbers = [1,2,3];
+        var negativeNumbers = [-3,-2,-1];
+        var numbers = negativeNumbers.concat(zero,positiveNumbers);
+        console.log("concat()");
+        console.log(numbers);
+    })();
+
+
+    //  ITERATOR METHODS:  every() >> TEST, some() >> TEST, forEach() >> for Loop, map() >> new ARRAY, filter() >> new ARRAY for TRUE, reduce() >> accumulator
+
+    function iterator() {
+
+        var isEven = function(element, index, array){
+            //  returns true if element is a multiple of 2
+            console.log("Element: " + element + " Index: " + index + " Result: " + (element % 2 == 0));
+            return((element % 2 == 0)?true:false);
+        };
+        var numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+        var everyResult = numbers.every(isEven);      //  every()  ITERATE each element of array until the return value is FALSE
+        var someResult = numbers.some(isEven);       //  some()  ITERATE each element of array until the return value is TRUE
+        document.getElementById('demo').innerHTML = "<h2> Every element is divisible by 2 -- every(): " + everyResult + " </h2>";
+        document.getElementById('demo2').innerHTML = "<h2> At least one element is divisible by 2 -- some(): " + someResult + " </h2>";
+        numbers.forEach(isEven);    //  ITERATE entire array like a for loop
+
+        var myMap = numbers.map(isEven);    //  map()  create new array (myMap) with the returned values
+        console.log("map():");
+        console.log(myMap);
+
+        var evenNumbers = numbers.filter(isEven);   // filter()  create new array (evenNumbers) with array elements that returned true
+        console.log(evenNumbers);
+
+        var result = numbers.reduce(function(previous, current, index){     //  reduce()
+            return previous + current;
+        });
+        console.log("reduce(): " + result);
+    }
+
+    iterator();
+
+    //  SORTING:
+
+    function sorting(){
+
+        var points = [40, 100, 1, 5, 25, 10];
+
+        points.sort(function(a,b){return a-b});                     //  Numeric Sort --  lowest to hightest:
+        document.getElementById('demo3').innerHTML = points.join(" < ");
+
+        points.sort(function(a,b){return b-a});                     //  Numeric Sort --  highest to lowest:
+        document.getElementById('demo4').innerHTML = points.join(" > ");
+
+        points.sort(function(a,b){return a-b});                     //  Find highest value in an array
+        document.getElementById('demo5').innerHTML = points[0];
+
+        points.sort(function(a,b){return b-a});                     //  Find lowest value in an array
+        document.getElementById('demo6').innerHTML = points[0];
+
+    }
+    sorting();
+
+    //  CUSTOM SORTING:
+
+    (function(){
+    var friends = [
+        {name: 'John', age: 30},
+        {name: 'Ana', age: 20},
+        {name: 'Chris', age: 25}
+    ];
+
+    function comparePerson(a,b){
+        if (a.age < b.age){
+            return -1
+        }
+        if (a.age > b.age){
+            return 1
+        }
+        return 0
+    }
+    console.log(friends.sort(comparePerson));
+
+    })();
+
+
+</script>
+
+
+
+</body>
+</html>
