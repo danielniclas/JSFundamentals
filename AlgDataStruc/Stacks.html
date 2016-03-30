@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    //  CH. 2 Stacks
+    //  Creating a stack  "CLASS"
+    //  Stack uses the LIFO principle:  Last In First Out
+    //  Create our own class to represent a stack:  CONSTRUCTOR FUNCTION
+
+    function Stack() {
+
+        var items = [];                     //  Our DATA STRUCTURE to store the ELEMENTS of the STACK
+
+        //  Implement METHODS for our STACK FUNCTION:
+        this.push = function(element){
+            items.push(element);            //  array.push(element)  --  ADD new elements to the END of the STACK
+        };
+        this.pop = function() {
+            return items.pop();             //  array.pop() --  REMOVE terminal element and RETURN it
+        };
+        //  Implement HELPER METHODS:
+        this.peek = function(){
+            return items[items.length-1];    //  array[array.length -1]  array.length-1 = the last index  (RETURN the TERMINAL ELEMENT)
+        };
+        this.isEmpty = function(){
+            return (items.length ==0);       //  returns TRUE if (items.length == 0) << evaluates to TRUE  or FALSE if items.length is NOT == 0
+        };
+        this.size = function(){
+            return items.length;            //  returns the length of the array << the number of elements
+        };
+        this.clear = function() {
+            items = [];                     //  set array to empty
+        };
+        this.print = function(){
+            console.log(items.toString());  //  print COMPLETE ARRAY contents to console
+        };
+    }
+
+        //  INSTANTIATE an OBJECT INSTANCE of the STACK:
+        var myStack = new Stack();          //  INSTANTIATE the STACK and create a stack OBJECT called myStack
+
+        //  USE the STACK OBJECT that has been created:
+        var emptyBefore = myStack.isEmpty();
+        console.log("myStack.isEmpty: " + emptyBefore.toString().toUpperCase());    //  isEmpty() returns a BOOLEAN <<  need to convert to STRING first before using toUpperCase()
+
+        myStack.push(5);                    //  Add element to top of stack
+        myStack.push(8);                    //  Add element to top of stack
+
+        var emptyAfter = myStack.isEmpty();
+        console.log("myStack.isEmpty: " + emptyAfter.toString().toUpperCase());
+
+        console.log("myStack.peek(): " + myStack.peek());
+
+        myStack.push(11);
+        console.log(myStack.size());
+        console.log(myStack.isEmpty());
+
+        myStack.push(15);
+
+        myStack.pop();
+        myStack.pop();
+        console.log(myStack.size());
+        myStack.print();
+
+        //  DECIMAL TO BINARY - Convert a decimal number to a binary representation
+
+        //  Convert decimal to binary
+        //  Divide number by 2 (binary is base 2) until the division result is 0
+        //  10/2 == 5  rem == 0
+        //  5/2 == 2  rem == 1
+        //  2/2 == 1  rem == 0
+        //  1/2 == 0  rem == 1 <<  Division result is 0
+
+    function divideBy2 (decNumber) {
+
+        var remStack = new Stack(),
+                rem,
+                binaryString = '';
+
+        while (decNumber > 0) {
+            rem = Math.floor(decNumber % 2);        //  Math.floor() - round down  Modulus Operator: % <<  returns the division remainder
+            remStack.push(rem);                     //  push() remainder into the Stack
+            decNumber = Math.floor(decNumber / 2);  //  Divide the decNumber by two >>  Repeat the While LOOP until decNumber is zero  [Math.floor(0.5)]
+        }
+        while (!remStack.isEmpty()){                    //  Prepare the Binary String - While Loop array.pop() until the Stack is EMPTY
+            binaryString += remStack.pop().toString();  //  Concatenate the resultS
+        }
+        return binaryString
+    }
+    console.log(divideBy2(1));
+    console.log(divideBy2(2));
+    console.log(divideBy2(3));
+    console.log(divideBy2(4));
+    console.log(divideBy2(5));
+    console.log(divideBy2(6));
+    console.log(divideBy2(7));
+    console.log(divideBy2(8));
+    console.log(divideBy2(9));
+    console.log(divideBy2(10));
+
+    function baseConverter(decNumber, base){
+        var remStack = new Stack(),
+                rem,
+                baseString = '',
+                digits = '0123456789ABCDEF';                //  Digits used to concatenate the completed 'baseString'
+
+        while (decNumber > 0) {
+            rem = Math.floor(decNumber % base);
+            remStack.push(rem);
+            decNumber = Math.floor(decNumber / base);
+        }
+
+        while (!remStack.isEmpty()){
+            baseString += digits[remStack.pop()];
+        }
+        return baseString;
+    }
+    console.log(baseConverter(100345,2));       //  Decimal to BINARY       (remainders from 0 or 1)
+    console.log(baseConverter(100345,8));       //  Decimal to OCTAGONAL    (remainders from 0 to 8)
+    console.log(baseConverter(100345,16));      //  Decimal to HEXADECIMAL  (remainders can be 9 to 8 plus A to F - valued 10-15)
+
+
+</script>
+
+</body>
+</html>
