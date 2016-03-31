@@ -48,7 +48,7 @@
     }
 
     //  Recursion!!!
-    function towerOfHanoi(n, from, to, help){     //  towerOfHanoi(1,2,3,4)  1.  Size of source (3)  2.  Source Stack  3.  Destination Stack  4.  Helper Stack
+    function towerOfHanoi(n, from, to, help){       //  towerOfHanoi(1,2,3,4)  1.  Size of source (3)  2.  Source Stack >> 3.  Destination Stack  4.  Helper Stack
                                                     //  1. size  2. source  3. destination  4. helper
 
         console.log("Above if(n>0) " + n );
@@ -56,20 +56,23 @@
 
         if (n > 0){
 
-            console.log("top of invoke " + n);
-            towerOfHanoi(n-1, from, help, to);    //  INVOKE with Stacks in different order:  1. size-1   2.  source  3. helper  4.  destination
-            console.log("bottom of invoke " + n);
+            towerOfHanoi(n-1, from, help, to);      //  INVOKE with Stacks in different order:  1. size-1   2.  source >>  3. helper  4.  destination
 
-            to.push(from.pop());                    //  destination stack.push(source stack.pop())
+            to.push(from.pop());                    //  DESTINATION:  stack.push  SOURCE:  (stack.pop())
 
             console.log('-----');
             console.log('Source: ' + source.toString());
             console.log('Dest: ' + dest.toString());
             console.log('Helper: ' + helper.toString());
 
-            console.log("top of second invoke " + n);
-            towerOfHanoi(n-1, help, to, from);        //  1.  size-1  2.  helper  3.  destination  4.  source
-            console.log("bottom of second invoke " + n);
+
+            console.log('~~~~~');
+            console.log('From: ' + from.toString());
+            console.log('To: ' + to.toString());
+            console.log('Help: ' + help.toString());
+            console.log('-----');
+
+            towerOfHanoi(n-1, help, to, from);        //  INVOKE  1. size-1  2.  helper >> 3.  destination  4.  source
         }
     }
 

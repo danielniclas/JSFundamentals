@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    //  Queues follow FIFO:  First In First Out
+    //  Newest element added to the queue must wait at the end of the queue
+
+    //  Queue Class:  Object constructor:
+
+    function Queue() {
+        var items = [];
+
+        //  FIFO methods:
+        this.enqueue = function (element){      //  ADD new element to the END of the queue
+            items.push(element)
+        };
+        this.dequeue = function(){              //  REMOVE the element from index[0]
+            return items.shift();
+        };
+        //  Helper methods:
+        this.front = function(){                //  View the front item of the queue - index[0]
+            return items[0];
+        };
+        this.isEmpty = function(){              //  RETURN TRUE if array is empty - otherwise FALSE
+            return (items.length == 0);         //  expression evaluates TRUE or FALSE
+        };
+        this.size = function(){                 //  RETURN size of array
+            return items.length
+        };
+        this.print = function(){                //  Print Method
+            console.log(items.toString());
+        };
+    }
+
+    //  INSTANTIATE a new QUEUE:
+    var myQueue = new Queue();
+    //  USE the QUEUE:
+    console.log(myQueue.isEmpty().toString().toUpperCase());    //  remember, returns BOOLEAN.  Must convert to string before uppercase
+
+    myQueue.enqueue("Mook");
+    myQueue.enqueue("Barn");
+    myQueue.enqueue("Nibbs");
+
+    myQueue.print();
+    console.log(myQueue.size());
+    console.log(myQueue.isEmpty().toString().toUpperCase());
+    myQueue.dequeue();
+    myQueue.dequeue();
+    myQueue.print();
+
+    function PriorityQueue() {
+
+        var items = [];
+        var currentObject;
+        var message ="";
+
+        function QueueElement (element, priority) {     //  Create {Object} with element and priority property
+            console.log("Inside QueueElement");
+            this.element = element;
+            this.priority = priority;
+        }
+
+         this.enqueue = function(element, priority) {
+             var queueElement = new QueueElement(element, priority);
+
+             if (this.isEmpty()){
+                    items.push(queueElement);       //  If Object is empty push() the queueElement {OBJECT} created above
+                } else {
+                    var added = false;
+                    for (var i=0; i<items.length; i++){
+                        if (queueElement.priority < items[i].priority) {    //  If new {Object} priority is lower than currentItem.priority SPLICE it IN!
+                            items.splice(i,0,queueElement);                 //  if Priority is LESS (lower number = higher priority) splice in at that index!
+                            added = true;
+                            break;
+                        }
+                    }
+                    if (!added)
+                    items.push(queueElement);       //  If False just stuff it in there - in case same priority is encoutered at the end
+                }
+            };
+
+        this.dequeue = function(){              //  REMOVE the element from index[0]
+            return items.shift();
+        };
+        //  Helper methods:
+        this.front = function(){                //  View the front item of the queue - index[0]
+            return items[0];
+        };
+        this.isEmpty = function(){              //  RETURN TRUE if array is empty - otherwise FALSE
+            return (items.length == 0);         //  expression evaluates TRUE or FALSE
+        };
+        this.size = function(){                 //  RETURN size of array
+            return items.length
+        };
+        this.print = function() {                //  Print Method
+            for (var i = 0; i<items.length; i++){
+                currentObject = items[i];
+                console.log("Name: " + currentObject.element + " | Priority: " + currentObject.priority);
+                }
+        }
+    }
+
+    //  INSTANTIATE THE PriorityQueue:
+    var priorityQueue = new PriorityQueue();
+
+    priorityQueue.enqueue("John", 2);
+    priorityQueue.enqueue("Jack", 1);
+    priorityQueue.enqueue("Koost", 3);
+    priorityQueue.enqueue("Camila", 2);
+    priorityQueue.print();
+
+
+</script>
+
+</body>
+</html>
