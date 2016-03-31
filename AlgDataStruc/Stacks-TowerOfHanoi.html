@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    //  My Stack Class:
+    function Stack() {
+
+        //let items = [];
+        var items = [];
+
+        this.push = function(element){
+            items.push(element);
+        };
+
+        this.pop = function(){
+            return items.pop();
+        };
+
+        this.peek = function(){
+            return items[items.length-1];
+        };
+
+        this.isEmpty = function(){
+            return items.length == 0;
+        };
+
+        this.size = function(){
+            return items.length;
+        };
+
+        this.clear = function(){
+            items = [];
+        };
+
+        this.print = function(){
+            console.log(items.toString());
+        };
+
+        this.toString = function(){
+            return items.toString();
+        };
+    }
+
+    //  Recursion!!!
+    function towerOfHanoi(n, from, to, help){     //  towerOfHanoi(1,2,3,4)  1.  Size of source (3)  2.  Source Stack  3.  Destination Stack  4.  Helper Stack
+                                                    //  1. size  2. source  3. destination  4. helper
+
+        console.log("Above if(n>0) " + n );
+
+
+        if (n > 0){
+
+            console.log("top of invoke " + n);
+            towerOfHanoi(n-1, from, help, to);    //  INVOKE with Stacks in different order:  1. size-1   2.  source  3. helper  4.  destination
+            console.log("bottom of invoke " + n);
+
+            to.push(from.pop());                    //  destination stack.push(source stack.pop())
+
+            console.log('-----');
+            console.log('Source: ' + source.toString());
+            console.log('Dest: ' + dest.toString());
+            console.log('Helper: ' + helper.toString());
+
+            console.log("top of second invoke " + n);
+            towerOfHanoi(n-1, help, to, from);        //  1.  size-1  2.  helper  3.  destination  4.  source
+            console.log("bottom of second invoke " + n);
+        }
+    }
+
+    var source = new Stack();       //  Stack 1:  Source stack with three numbers:  Top 1,2,3 Bottom
+
+    source.push(3);
+    source.push(2);
+    source.push(1);
+
+    var dest = new Stack();         //  Stack 2:  Destination stack - where the numbers need to end up
+    var helper = new Stack();       //  Stack 3:  Helper of holding stack
+
+    towerOfHanoi(source.size(), source, dest, helper);      //  INVOKE:  towerOfHanoi(1,2,3,4)  1.  Size of source (3)  2.  Source Stack  3.  Destination Stack  4.  Helper Stack
+
+    source.print();
+    helper.print();
+    dest.print();
+
+
+</script>
+
+</body>
+</html>
