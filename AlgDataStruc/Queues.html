@@ -54,34 +54,36 @@
     myQueue.dequeue();
     myQueue.print();
 
-    function PriorityQueue() {
+    //  SPECIAL IMPLEMENTATION #1:  Priority Queue
+    //  MIN PRIORITY QUEUE:  adding the element with the lower value (1 has higher priority) to the front of the queue  (also a MAX PRIORITY QUEUE)
+
+    function PriorityQueue() {                          //  [{},{},{}]  Create Array of Objects
 
         var items = [];
         var currentObject;
         var message ="";
 
-        function QueueElement (element, priority) {     //  Create {Object} with element and priority property
-            console.log("Inside QueueElement");
-            this.element = element;
+        function QueueElement (element, priority) {     //  Constructor Function to Create {Object} with element and priority property >>  GOES INTO QUEUE
+            this.element = element;                     //  {element: "element", priority: "priority"} >>  This object goes into the QUEUE
             this.priority = priority;
         }
 
-         this.enqueue = function(element, priority) {
-             var queueElement = new QueueElement(element, priority);
+         this.enqueue = function(element, priority) {                   //  ENQUEUE function
+             var queueElement = new QueueElement(element, priority);    //  Instantiate the Object Constructor Function above >>  Object called queueElement
 
              if (this.isEmpty()){
                     items.push(queueElement);       //  If Object is empty push() the queueElement {OBJECT} created above
                 } else {
                     var added = false;
-                    for (var i=0; i<items.length; i++){
-                        if (queueElement.priority < items[i].priority) {    //  If new {Object} priority is lower than currentItem.priority SPLICE it IN!
+                    for (var i=0; i<items.length; i++){                     //  Iterate through {Objects} in the array
+                        if (queueElement.priority < items[i].priority) {    //  Compare Priorities:  If new {Object} priority is lower than CURRENT ITEM.priority SPLICE it IN!
                             items.splice(i,0,queueElement);                 //  if Priority is LESS (lower number = higher priority) splice in at that index!
                             added = true;
-                            break;
+                            break;                                          //  When we find the element with BIGGER priority, insert the element and STOP LOOPING the QUEUE
                         }
                     }
                     if (!added)
-                    items.push(queueElement);       //  If False just stuff it in there - in case same priority is encoutered at the end
+                    items.push(queueElement);       //  If the priority we are adding is BIGGER than any priority already added, add to the END of the QUEUE
                 }
             };
 
@@ -109,11 +111,38 @@
     //  INSTANTIATE THE PriorityQueue:
     var priorityQueue = new PriorityQueue();
 
-    priorityQueue.enqueue("John", 2);
+    priorityQueue.enqueue("John", 2);               //  Adding OBJECTS to the QUEUE
     priorityQueue.enqueue("Jack", 1);
     priorityQueue.enqueue("Koost", 3);
     priorityQueue.enqueue("Camila", 2);
+    priorityQueue.enqueue("Barn", 1);
     priorityQueue.print();
+
+    //  SPECIAL IMPLEMENTATION #2:  Circular Queue
+    //  CIRCULAR QUEUE - HOT POTATO GAME
+
+    function hotPotato (nameList, num) {
+
+        var potatoQueue = new Queue ();             //  Implement QUEUE Class from top of script
+
+        for (var i=0; i<nameList.length; i++){      //  Add each person in the list to the QUEUE
+            potatoQueue.enqueue(nameList[i]);
+            potatoQueue.print();
+        }
+
+        var eliminated = '';
+        while (potatoQueue.size() > 1 ){
+            for (var j=0; j < num; j++){                        //  Loop based on num (number)
+                potatoQueue.enqueue(potatoQueue.dequeue());     //  Remove element from QUEUE (FRONT) and ADD it back to END of line
+            }
+            eliminated = potatoQueue.dequeue();                 //  Remove ONE person from FRONT of QUEUE and return to WHILE LOOP
+            console.log(eliminated + ' was eliminated from the Hot Potato game. ');
+        }
+        return potatoQueue.dequeue()
+    }
+    var names = ['John','Jack','Camila','Ingrid','Carl'];
+    var winner = hotPotato(names, 7);
+    console.log('The winner is: ' + winner);
 
 
 </script>
