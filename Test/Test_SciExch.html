@@ -7,7 +7,7 @@
 <body>
 
 <div id="demo"></div>
-
+<div id="demo2"></div>
 
 <script type="text/javascript">
 
@@ -85,6 +85,59 @@ var result = compare("david", "avidd");
 function printResult(stringOne, stringTwo, result){
 document.getElementById('demo').innerHTML = "<h2> Is '" + stringTwo + "' a string rotation of '" + stringOne  + "' ? " + result + "</h2>";
 }
+
+
+//  Another QUEUE LIKE approach to solving this:
+
+function compareX (stringOne, stringTwo) {
+
+    var currentChar, testCharIndex, testChar;
+    var currentCharTwo, testCharIndexOne, testCharOne;
+    var stringArrayOne = [], testArray = [];
+    var stringArrayTwo = [], testArrayX = [];
+    var marker = "false";
+
+    if (stringOne.length != stringTwo.length) {                  //  Test 1:  for identical string length
+        printResult(stringOne, stringTwo, "false");
+        return false;
+    } else {
+
+        for (i=0;i<stringOne.length; i++){
+            stringArrayOne.push(stringOne[i])
+        }
+        for (j=0;j<stringTwo.length; j++){
+            stringArrayTwo.push(stringTwo[j])
+        }
+
+        console.log(stringArrayOne.toString());
+        console.log(stringArrayTwo.toString());
+
+        for (k = 0; k<stringArrayTwo.length; k++){
+            stringArrayTwo.push(stringArrayTwo.shift());        //  <<  remove element from Front of queue and add it to the Rear (end of line)
+
+            console.log("Loop: " + stringArrayOne.toString());
+            console.log("Loop: " + stringArrayTwo.toString());
+
+            if (stringArrayOne.toString() == stringArrayTwo.toString()){
+                marker = "true";
+                printResultX(stringOne, stringTwo, marker);
+                return true;
+            } else{
+                printResultX(stringOne, stringTwo, marker);
+            }
+        }
+        return false;
+    }
+}
+
+var resultX = compareX("david", "avsdd");
+console.log("Rotation test resultX: " + resultX);
+
+
+function printResultX (stringOne, stringTwo, result){
+    document.getElementById('demo2').innerHTML = "<h2> Is '" + stringTwo + "' a string rotation of '" + stringOne  + "' ? " + result + "</h2>";
+}
+
 
 </script>
 
